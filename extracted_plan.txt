@@ -1,0 +1,582 @@
+=== PAGE 1 ===
+W E B S I T E  T E C H N I C A L  &  D E S I G N  P L A N
+NAWEZA CONSULTING
+Digital Platform Blueprint
+Architecture, design system, content model and phased build plan for
+www.nawezaconsulting.com — prepared for handoff to a development
+team, built for deployment on Vercel and designed to scale from a brand
+website into a booking, payments and client-portal platform. 
+Prepared for: Naweza Consulting
+Systems | Strategy | Growth
+Naweza Consulting
+Website Plan • Page 1 of 14
+
+=== PAGE 2 ===
+Contents
+1. Executive Summary
+3
+2. Technology Stack
+3
+3. System Architecture
+4
+4. Site Map & Navigation
+5
+5. Content Model (CMS Schema)
+6
+6. Brand & Entity Presentation Rules
+7
+7. Design System
+7
+8. Page-Level Specifications
+8
+9. Phased Roadmap
+9
+10. Scalability & Performance Plan
+10
+11. Security, Compliance & Ops
+10
+12. Deployment Plan (Vercel)
+11
+13. Open Questions Before Build
+11
+This document translates the Naweza Consulting Website Content & Development Brief into a build-ready technical and design plan. It
+is written to be handed directly to a developer or development agent, and assumes deployment on Vercel with room to grow into
+bookings, payments, CRM and a client portal without a platform rewrite. 
+Naweza Consulting — Website Plan • Page 2 of 14
+
+=== PAGE 3 ===
+1. Executive Summary
+Naweza Consulting needs one credible, mobile-first brand website that represents two legal entities — Naweza Investments CC
+(established 2018, the track record) and Naweza Consulting Investments (Pty) Ltd (established 2026, the international/Africa market-
+development arm) — without legally merging them or overstating the Pty Ltd's history. The brief also flags a clear future path: consultation
+booking, service-specific forms, document upload, quotations, payments, a client portal, and CRM/lead capture. 
+Because content (services, case studies, insights, entity wording) will change often and the site must grow into transactional features, the
+recommended approach is a headless, API-first architecture: a Next.js front end on Vercel, a headless CMS for everything editorial,
+and a managed Postgres database reserved for anything transactional (bookings, leads, users) added in later phases. This lets Phase 1
+ship as a fast, content-only marketing site, while Phases 2–3 add features by extending the same codebase rather than replacing it. 
+What ships in Phase 1
+Marketing site: Home, About, Services, Africa Market
+Development, Our Experience, Case Studies, Insights,
+Book a Consultation (form), Contact
+CMS-editable content for services, case studies, insights
+and entity/legal text
+Mobile-first, fast-loading, SEO-ready
+Domain + professional email routing
+What Phase 2–3 add on the same foundation
+Real booking/calendar, service-specific intake forms,
+document upload
+Quotation/request-a-proposal workflow, payments
+Client portal (auth), CRM/lead capture integration
+Newsletter / research insights distribution
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 3 of 14
+
+=== PAGE 4 ===
+2. Technology Stack
+Chosen for: (a) native fit with Vercel, (b) one language across the whole stack so a small team or a solo developer can move fast, (c) a
+straight upgrade path from "brochure site" to "booking + payments + portal" with no re-platforming.
+Core stack
+Layer
+Choice
+Why
+Language
+TypeScript end-to-end (frontend, API
+routes, scripts)
+One language for the whole app; catches data-shape mistakes (e.g. wrong
+entity on a page) before they reach production.
+Framework
+Next.js 15 (App Router)
+Built by Vercel, deploys to it natively; mixes static marketing pages with
+dynamic booking/portal pages in one project.
+Styling
+Tailwind CSS + a small design-token
+file
+Fast to build and restyle; keeps the corporate blue/black/off-white palette
+centralised in one config so it's never "invented per page."
+CMS (content)
+Sanity.io (headless)
+Structured content model (see Section 5), real-time editing, generous free tier,
+first-class Next.js integration. Contentful or Payload CMS are acceptable
+alternatives if the team prefers.
+Database
+(transactional, Phase
+2+)
+Postgres via Neon or Vercel
+Postgres + Prisma ORM
+Only needed once bookings/leads/users exist; Prisma keeps schema changes
+safe and typed.
+Auth (Phase 3 client
+portal)
+Clerk or NextAuth.js (Auth.js)
+Drop-in login for a future client portal without building auth from scratch.
+Payments (Phase 2)
+Stripe (via Stripe Checkout)
+Handles Namibian/international card payments; PCI compliance is offloaded to
+Stripe.
+Booking/calendar
+(Phase 2)
+Cal.com (embed or API) or a custom
+form + Google Calendar API
+Cal.com gets a real booking flow live fast; custom API integration is the fallback
+if deeper CRM sync is needed later.
+Forms & validation
+React Hook Form + Zod
+Type-safe validation shared between client and server for intake/quotation
+forms.
+Email delivery
+Resend (transactional) + Google
+Workspace or Microsoft 365
+(mailboxes)
+Resend sends booking confirmations/notifications reliably; Workspace/365
+gives info@, bookings@, etc. real inboxes.
+File uploads (Phase
+2)
+Vercel Blob or UploadThing
+Secure document upload for client onboarding without managing your own
+storage server.
+Analytics
+Vercel Analytics + Plausible
+Privacy-friendly traffic data without a heavy Google Analytics/consent-banner
+burden.
+Version control / CI
+GitHub + Vercel's built-in preview
+deployments
+Every change gets a preview URL before going live — useful for an agent-built
+site that needs review.
+Why not [common alternatives]
+WordPress: faster to start, but weaker fit for the booking/payments/portal roadmap and for Vercel's edge-first hosting model; harder
+to keep "clean and modern" without plugin sprawl.
+Plain static site (no CMS): would mean a developer edits code every time a service or case study changes — the brief explicitly
+wants non-technical content updates.
+Separate PHP/Node backend: unnecessary complexity for Phase 1; Next.js API routes and Vercel serverless functions cover Phase
+2–3 needs without a second deployment target.
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 4 of 14
+
+=== PAGE 5 ===
+3. System Architecture
+Architecture is layered so Phase 1 only needs the top two layers; Phase 2–3 activate the rest without touching the front end's
+structure.
+Edge / CDN — Vercel — serves static and ISR-cached pages globally, routes requests, handles domains & SSL, runs middleware (redirects,
+locale, security headers).
+▲▼
+Application — Next.js (App Router, TypeScript) — renders Home / About / Services / Africa Market Development / Case Studies / Insights /
+Booking / Contact. Server Components pull content at build time or via ISR; Client Components handle interactive forms.
+▲▼
+Content layer
+Sanity.io — services, case studies, insights, entity/legal copy,
+homepage sections. Editors update content without a deploy.
+API / server actions
+Next.js API routes — contact/booking form submission, quotation
+requests, webhook receivers (Stripe, Cal.com).
+▲▼
+Transactional data — Phase 2+
+Postgres (Neon/Vercel Postgres) via Prisma — bookings, quotation
+requests, leads, uploaded-document metadata.
+Third-party services
+Stripe (payments) · Cal.com (scheduling) · Resend (email) · Clerk/
+Auth.js (Phase 3 portal login) · CRM (HubSpot/Pipedrive, Phase 3)
+Request flow example — "Book a Consultation" (Phase 2)
+Visitor fills the booking form (React Hook Form + Zod validation) on a page served from the Edge.
+Form posts to a Next.js Server Action / API route.
+The route writes the request to Postgres, triggers a Resend confirmation email to the client and a notification to 
+bookings@nawezaconsulting.com , and (if using Cal.com) creates the calendar event.
+If the engagement requires payment, the client is redirected to a Stripe Checkout session; Stripe's webhook confirms payment back
+to the API route, which updates the booking status.
+Everything left of "Postgres" in this flow does not exist yet in Phase 1 — the Phase 1 site only needs a simple contact/enquiry form that emails the team.
+1. 
+2. 
+3. 
+4. 
+Naweza Consulting — Website Plan • Page 5 of 14
+
+=== PAGE 6 ===
+4. Site Map & Navigation
+Primary navigation (as specified in the brief)
+NAV
+ Home · About · Services · Africa Market Development · Our Experience · Case Studies · Insights · Book a Consultation · Contact
+Full page tree
+Page
+URL
+Purpose
+CMS-driven?
+Home
+/
+Hero, positioning statement, two CTAs, two-entity summary, credibility
+since-2018 note, Africa/Pty Ltd teaser, case studies preview, services
+overview, insights teaser, booking teaser, contact
+Yes — homepage
+sections
+About
+/about
+Track record (2018–), the Naweza Investments CC story, team, how the
+two entities relate
+Yes
+Services
+/services
+Full list of the 7 core services (Section 5 of brief)
+Yes — Service collection
+Service detail
+/services/[slug]
+One page per service, generated from the CMS
+Yes
+Africa Market
+Development
+/africa-market-
+development
+Pty Ltd-specific page: market research, opportunity scouting, partner ID,
+tender intelligence, lead generation, local market support
+Yes — clearly tagged to
+Pty Ltd entity
+Our Experience
+/experience
+2018– track record, attributed correctly to Naweza Investments CC
+Yes
+Case Studies
+/case-studies
+Sorris Sorris Conservancy, Sonhos Private School, Nueise Investments —
+no invented clients
+Yes — Case Study
+collection
+Case study detail
+/case-studies/
+[slug]
+One page per case study
+Yes
+Insights
+/insights
+Research & Insights / Opportunities content, future newsletter feed
+Yes — Insight Post
+collection
+Book a
+Consultation
+/book-a-
+consultation
+Phase 1: enquiry form. Phase 2: real calendar booking + service-specific
+forms
+Form config in CMS;
+submissions to DB in
+Phase 2
+Contact
+/contact
+Domain email, entity-aware contact routing
+Yes
+Legal / Entities
+/legal
+Full entity disclosure, registration details (added once Pty Ltd registration
+completes)
+Yes — Legal Entity
+collection
+Client Portal
+(Phase 3)
+/portal
+Authenticated area: proposal status, documents, invoices
+App data, not CMS
+Naweza Consulting — Website Plan • Page 6 of 14
+
+=== PAGE 7 ===
+5. Content Model (CMS Schema)
+This is the schema an editor (or the developer, on day one) sets up in Sanity so every future content change — a new service, a new
+case study, a wording fix on the Pty Ltd's founding year — happens without a code deploy.
+Type
+Key fields
+Notes
+LegalEntity
+name, shortName, establishedYear, role,
+positioningText, isRegistrationComplete (bool),
+registrationNumber (nullable)
+Two records: Naweza Investments CC (2018) and Naweza
+Consulting Investments (Pty) Ltd (2026). Every other content type
+references this instead of hard-coding entity names/years.
+Service
+title, slug, shortDescription, fullDescription,
+icon, relatedEntity (ref)
+Seeded from the 7 services table in the brief.
+CaseStudy
+clientName, slug, summary, servicesProvided
+(refs), entity (ref), permissionConfirmed (bool),
+images
+permissionConfirmed  gates whether project photography
+can be used, per Section 8 of the brief.
+InsightPost
+title, slug, body, publishDate, tags, author
+Powers /insights and the future newsletter.
+HomepageSection
+sectionKey, heading, body, ctaLabel, ctaLink
+Lets non-developers edit the hero, positioning statement and
+CTAs directly.
+TeamMember (optional)
+name, role, bio, photo
+For founder/team portraits described in Section 8.
+BookingRequest (Phase
+2, Postgres not CMS)
+name, email, company, serviceRequested,
+entityContacted, preferredDate, status,
+paymentStatus
+Transactional — lives in Postgres, not the CMS.
+Keeping LegalEntity  as its own referenced type — rather than typing "2018" or "2026" directly into page copy — is what makes the entity-wording rules
+in Section 6 enforceable and future-proof: change the year or registration status once, and every page that references it updates automatically.
+Naweza Consulting — Website Plan • Page 7 of 14
+
+=== PAGE 8 ===
+6. Brand & Entity Presentation Rules
+These are hard content rules from the brief. They should be enforced structurally (via the CMS schema above), not just remembered
+by whoever edits copy.
+One public brand: NAWEZA CONSULTING. The two legal entities are never presented as "merged."
+Naweza Investments CC — established/operating since 2018. This is the only entity allowed to carry the 2018 track record and the
+three named case studies.
+Naweza Consulting Investments (Pty) Ltd — established 2026. Must never be described or implied as operating since 2018. Owns
+the Africa Market Development positioning.
+Do not invent additional clients, statistics, awards or credentials anywhere on the site.
+The Pty Ltd is not presented as "registered" until registration is actually complete; once it is, registration details are added to the
+footer/legal/contact area (this is exactly what the isRegistrationComplete  / registrationNumber  fields above are for).
+Formal documents generated from the site in future phases (quotations, invoices, agreements) must identify the correct contracting
+entity per engagement — this becomes a required field on the BookingRequest / quotation data model in Phase 2.
+International outreach (e.g. LinkedIn) can reference the Pty Ltd's 2026 identity immediately; it does not need to wait for the website.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 8 of 14
+
+=== PAGE 9 ===
+7. Design System
+Palette
+#0A2540
+Corporate Blue
+(primary)
+#0F3460
+Deep Blue (accent)
+#12151A
+Near-Black (text/
+headers)
+#8A94A3
+Neutral Grey
+#F4F1EA
+Off-White
+(backgrounds)
+No gold, no green, minimal icon use — per Section 8 of the brief. Accent colour used sparingly (CTAs, links, section dividers only).
+Typography
+Role
+Typeface
+Notes
+Headings
+Inter or Söhne (fallback: system sans-serif)
+Bold weights only for H1/H2; avoid decorative fonts.
+Body
+Inter, 16px base on desktop / 15px mobile
+1.6 line-height for readability on long service/case-study pages.
+Imagery direction
+Use
+Professional upper-body corporate portraits — natural,
+confident, approachable
+Working images: laptops, document review, meetings,
+planning sessions
+Namibia/Africa maps, logistics, ports, agriculture,
+renewable energy, construction/mining, commercial
+activity
+Subtle Africa-to-global visual cues for the Pty Ltd's
+international section
+Real client/project photography only where 
+permissionConfirmed  is true
+Avoid
+Generic handshake stock photos
+Overly staged, "sales flyer" imagery
+Heavy gold/green styling
+Excessive icons or animation
+Visuals implying services Naweza does not provide
+Layout principles
+Mobile-first: design and build for a 375–414px viewport first, then scale up.
+Homepage stays concise; depth lives on dedicated pages (About, Services, Africa Market Development).
+Clear, repeated CTAs: "Book a Consultation" / "Discuss a Project" / "Request Research."
+Generous white space over dense corporate walls of text — credible to both a Namibian SME and an international prospect.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 9 of 14
+
+=== PAGE 10 ===
+8. Page-Level Specifications
+Homepage
+Hero — "NAWEZA CONSULTING — Systems | Strategy | Growth"
+Positioning statement — Namibian business platform: advisory, research, compliance, market development
+Two CTAs: Explore Services / Book a Consultation
+Short explanation of the two business arms (entity-aware, pulling from LegalEntity)
+Credibility section — Naweza platform experience since 2018, without implying the Pty Ltd predates 2026
+International / Africa Market Development teaser (Pty Ltd)
+Selected case studies
+Services overview grid
+Research & Insights teaser
+Booking / consultation section
+Contact section with domain email
+Services (7 core services)
+Service
+Description
+Business Compliance & Advisory
+Compliance support, business formalisation and practical advisory
+Taxation & Financials
+Tax support, bookkeeping, financial information and preparation
+Business Plans & Projections
+Business plans, budgets, projections and feasibility work
+Research & Analysis
+Market research, business research, feasibility research and opportunity analysis
+Project Proposals
+Structured proposals and supporting business documentation
+Business Management & Back Office
+Documentation, administration, CRM/lead follow-up and operational support
+Africa Market Development
+Market intelligence, partner identification, opportunity scouting, local market support
+Africa Market Development (Pty Ltd page)
+Targets international manufacturers, suppliers, technology companies and investors interested in Namibia/SADC. Sections: Market
+Research & Analysis, Opportunity Scouting, Distributor/Dealer/Partner Identification, Contractor/EPC/Local Partner Research, Project &
+Tender Intelligence, Lead Generation & Follow-up, Research & Proposal Writing, Local Market Support. Must state "established 2026"
+clearly.
+Case Studies (seed content — no additions without client permission)
+Sorris Sorris Conservancy — funding proposals, financial feasibility, regulatory/stakeholder alignment
+Sonhos Private School — formalisation, BIPA registration, regulatory compliance, bookkeeping, operational scaling
+Nueise Investments — bookkeeping, taxation, corporate letters, proposals, business advisory
+Footer (as specified)
+NAWEZA CONSULTING
+Systems | Strategy | Growth
+www.nawezaconsulting.com | info@nawezaconsulting.com
+Naweza Investments CC — established 2018
+Naweza Consulting Investments (Pty) Ltd — established 2026
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+11. 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 10 of 14
+
+=== PAGE 11 ===
+© 2026 Naweza Consulting. All rights reserved. 
+Naweza Consulting — Website Plan • Page 11 of 14
+
+=== PAGE 12 ===
+9. Phased Roadmap
+PHASE 1  Brand website & domain (build now)
+Domain (nawezaconsulting.com) + professional email (info@, and the other suggested mailboxes)
+Full marketing site per Section 4 site map, on Next.js + Sanity CMS
+Simple enquiry/contact form (email notification only, no database yet)
+SEO fundamentals, mobile-first, analytics installed
+PHASE 2  Bookings, forms & payments
+Real calendar booking (Cal.com or custom) replacing the simple enquiry form
+Service-specific intake/quotation forms with Zod validation
+Secure document upload for client onboarding
+Postgres + Prisma introduced to store bookings/leads
+Stripe payments for applicable services
+Automated booking confirmations and notifications via Resend
+PHASE 3  Client portal & CRM
+Authenticated client portal (Clerk/Auth.js) for proposal status, documents, invoices
+CRM integration (e.g. HubSpot or Pipedrive) for lead capture and follow-up
+Newsletter distribution for Research & Insights content
+Each phase is additive — nothing in Phase 1's architecture needs to be rebuilt to support Phase 2 or 3.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 12 of 14
+
+=== PAGE 13 ===
+10. Scalability & Performance Plan
+Static + ISR rendering: marketing pages (services, case studies, insights) are statically generated and revalidated on a schedule or
+on CMS webhook, so traffic spikes hit Vercel's CDN cache, not the origin.
+Images: Next.js Image component with automatic resizing/format conversion (AVIF/WebP) — important given the photography-heavy
+design direction.
+Serverless functions for forms/bookings scale automatically with Vercel — no server capacity planning needed.
+Database scaling (Phase 2+): Neon/Vercel Postgres support connection pooling and autoscaling compute, so the same database
+serves the site from first booking through hundreds per month without a migration.
+Preview deployments: every content or code change gets its own URL to review before it reaches the live domain — useful when
+an agent is doing the building.
+11. Security, Compliance & Ops
+HTTPS everywhere (automatic via Vercel), HSTS and standard security headers via Next.js middleware.
+Form spam protection (e.g. Cloudflare Turnstile or hCaptcha) on public forms from Phase 1 onward.
+Least-privilege environment variables for all API keys (Sanity, Stripe, Resend, database), managed in Vercel's encrypted project
+settings — never committed to the repo.
+Document uploads (Phase 2) stored in access-controlled storage (Vercel Blob/UploadThing) with signed URLs, not public buckets.
+Client portal auth (Phase 3) uses a managed provider (Clerk/Auth.js) rather than custom-built authentication.
+Formal documents (quotations, invoices) must be generated with the correct legal entity attached — a data validation rule, not just a
+content reminder.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+Naweza Consulting — Website Plan • Page 13 of 14
+
+=== PAGE 14 ===
+12. Deployment Plan (Vercel)
+Create the GitHub repository; connect it to a new Vercel project.
+Configure three environments: Production (nawezaconsulting.com), Preview (automatic per pull request), Development (local).
+Point the domain's DNS to Vercel; configure MX/DKIM/SPF records separately for Google Workspace or Microsoft 365 email —
+domain hosting and email hosting are independent and both need to be set up.
+Provision Sanity project and connect via environment variables; seed initial content (services, case studies, legal entities) from this
+document's Section 5 schema.
+Set up Vercel Analytics/Plausible, and error monitoring (e.g. Sentry) from day one.
+Phase 2: provision Neon/Vercel Postgres, Stripe account, Resend account, Cal.com; add corresponding environment variables and
+webhook endpoints.
+Phase 3: provision Clerk/Auth.js and CRM integration.
+13. Open Questions Before Build
+1. Has the domain (nawezaconsulting.com) already been registered, or does that need to happen as step one?
+2. Preferred email platform — Google Workspace or Microsoft 365 — for info@/bookings@/etc.?
+3. Is there existing photography (founder/team, case-study projects with permission) or does Phase 1 need a stock-image sourcing pass first?
+4. Target date for Pty Ltd registration completion, so the Section 6 entity rules and footer can be updated on schedule?
+5. Should Phase 1 include a CRM/mailing-list signup even before full CRM integration (Phase 3), to start capturing leads immediately?
+6. Any existing brand guideline (logo files, exact colour hex codes) beyond "corporate blue, black, white, off-white," or is the palette in Section 7
+final?
+7. Budget/timeline constraints for Phase 1, so the agent can be scoped against a realistic delivery window?
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+Naweza Consulting — Website Plan • Page 14 of 14

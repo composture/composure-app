@@ -1,0 +1,111 @@
+NAWEZA CONSULTING
+Website Content & Development Brief
+www.nawezaconsulting.com  |  info@nawezaconsulting.com
+Purpose
+This document is the working brief for the web developer. The website should establish one strong NAWEZA CONSULTING brand while clearly distinguishing the two underlying legal entities. The website is intended to evolve over time; the immediate priority is to establish the domain, professional domain email, core positioning and a credible structure that can later accommodate online bookings, payments, client onboarding and additional services.
+1. Brand Architecture
+The companies are NOT being legally merged. The objective is to bring the brand, website, credibility and market presence under one digital platform while keeping the legal identities transparent.
+Entity
+Role on website
+Key positioning
+Naweza Investments CC
+Established business / track record
+Namibia operations, business advisory, compliance, taxation, bookkeeping, proposals, research, feasibility and operational support. Operating since 2018.
+Naweza Consulting Investments (Pty) Ltd
+International-facing / project development arm
+Africa market development, research & analysis, opportunity scouting, partner identification, proposal development, lead generation/follow-up and cross-border commercial support. Established 2026.
+2. Public-Facing Brand
+Primary brand: NAWEZA CONSULTING
+Domain: www.nawezaconsulting.com
+Primary email: info@nawezaconsulting.com
+Suggested supporting mailboxes for later: africa@nawezaconsulting.com, research@nawezaconsulting.com, projects@nawezaconsulting.com, bookings@nawezaconsulting.com.
+Suggested headline: SYSTEMS | STRATEGY | GROWTH
+Suggested international positioning: Your products. Our market intelligence. Africa.
+3. Homepage Structure
+Hero: NAWEZA CONSULTING — Systems | Strategy | Growth.
+Short positioning statement: A Namibian business platform combining practical business advisory, research, compliance and market development.
+Two clear calls to action: Explore Services / Book a Consultation.
+Short explanation of the two business arms.
+Experience / credibility section: highlight the Naweza platform's operating experience since 2018 without implying that the Pty Ltd existed before 2026.
+International / Africa Market Development section focused on the Pty Ltd.
+Selected case studies / proven track record.
+Services overview.
+Research & Insights / Opportunities section for future content.
+Booking / consultation section.
+Contact section with domain email.
+4. Suggested Main Navigation
+Home | About | Services | Africa Market Development | Our Experience | Case Studies | Insights | Book a Consultation | Contact
+5. Services
+Service
+Website description
+Business Compliance & Advisory
+Compliance support, business formalisation and practical advisory.
+Taxation & Financials
+Tax support, bookkeeping, financial information and business financial preparation.
+Business Plans & Projections
+Business plans, budgets, projections and feasibility work.
+Research & Analysis
+Market research, business research, feasibility research and opportunity analysis.
+Project Proposals
+Structured proposals and supporting business documentation.
+Business Management & Back Office
+Documentation, administration, CRM/lead follow-up and operational support.
+Africa Market Development
+Market intelligence, partner identification, opportunity scouting and local market support.
+6. Africa Market Development — Pty Ltd
+This section should be clearly associated with Naweza Consulting Investments (Pty) Ltd. It should target international manufacturers, suppliers, technology companies, investors and other organisations interested in Namibia and the wider African/SADC market.
+Market Research & Analysis
+Opportunity Scouting
+Distributor / Dealer / Partner Identification
+Contractor / EPC / Local Partner Research
+Project & Tender Intelligence
+Lead Generation & Follow-up
+Research & Proposal Writing
+Local Market Support
+Important wording rule: the Pty Ltd should be described as established in 2026. Do not state or imply that the Pty Ltd has operated since 2018. Where historical experience is used, attribute it to the Naweza platform / Naweza Investments CC and identify the relevant entity where appropriate.
+7. About / Track Record
+Use the existing Naweza Investments CC profile and documented case studies as the source for the 2018 track record. The current profile states that Naweza Investments CC t/a Naweza Consulting is a 100% Namibian-owned corporate advisory, technical services and ecosystem-enabling firm operating since 2018.
+Sorris Sorris Conservancy — funding proposals, financial feasibility and regulatory/stakeholder alignment.
+Sonhos Private School — formalisation, BIPA registration, regulatory compliance, bookkeeping and operational scaling.
+Nueise Investments — bookkeeping, taxation, corporate letters, proposals and business advisory.
+The web developer should not invent additional clients, statistics, awards or credentials.
+8. Photography & Visual Direction
+The visual identity should be clean, modern and corporate rather than looking like a generic sales flyer. Preferred palette: corporate blue, black, white and off-white. Avoid heavy gold/green styling and excessive icons.
+Primary founder / team photography: professional upper-body corporate portraits; natural, confident and approachable.
+Working images: laptop/research, reviewing documents, meetings, planning sessions and business discussions.
+Africa market imagery: Namibia/Africa maps, logistics, ports, industrial sites, agriculture, renewable energy, construction/mining equipment and commercial activity.
+International imagery: subtle Africa-to-Asia / Africa-to-global visual cues where relevant.
+Case-study imagery: use client/project photographs only where permission exists.
+Avoid generic handshake photographs, overly staged stock photos and visuals that imply services we do not provide.
+9. Legal / Entity Presentation
+The website should make the distinction clear without making the homepage feel legally complicated.
+Naweza Investments CC — operating/established since 2018.
+Naweza Consulting Investments (Pty) Ltd — established 2026.
+The Pty Ltd should not be presented as registered before its actual registration is completed.
+Once registration is complete, add the Pty Ltd's official registration details to the relevant footer/legal/contact area.
+Where a specific service is contractually provided by one entity, the quotation, invoice, agreement and other formal documents should identify the correct legal entity.
+10. International Client Acquisition — Immediate Execution
+Do NOT wait for the website to be perfect before beginning international outreach. The domain and professional email are the immediate priority. LinkedIn outreach can begin using the Pty Ltd's 2026 identity while the website is being completed.
+If a client responds positively or a paid opportunity arises before Pty Ltd registration is completed, do not misrepresent the company as already registered. Explain transparently that the new entity's registration is being finalised and confirm the appropriate contracting/invoicing entity before accepting the engagement.
+For a high-value or hourly international engagement, the legal entity that will sign the agreement and receive payment should be confirmed before work formally starts. Once the Pty Ltd registration is complete, provide the official registration documents when reasonably requested by the client.
+11. Future Website Features
+Online consultation booking/calendar.
+Service-specific booking forms.
+Client onboarding questionnaire.
+Secure document upload.
+Online quotation/request-a-proposal form.
+Payment options for applicable services.
+Client portal (future phase).
+Newsletter / research insights.
+CRM integration and lead capture.
+Automated booking confirmations and email notifications.
+12. Footer Concept
+NAWEZA CONSULTINGSystems | Strategy | Growthwww.nawezaconsulting.com | info@nawezaconsulting.comNaweza Investments CC — established 2018Naweza Consulting Investments (Pty) Ltd — established 2026© 2026 Naweza Consulting. All rights reserved.
+13. Developer Notes
+Build the site so the content can be edited easily as services and company information evolve.
+Mobile-first design is essential.
+Use a professional CMS so pages, services, case studies and booking information can be updated without rebuilding the site.
+Keep the homepage concise; deeper information belongs on dedicated pages.
+Use clear calls to action: Book a Consultation / Discuss a Project / Request Research.
+Do not overload the website with icons, animations or stock imagery.
+The website should feel credible to both a Namibian SME and an international corporate prospect.

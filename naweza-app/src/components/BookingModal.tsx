@@ -44,6 +44,27 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
         e.preventDefault();
         const ref = 'NWZ-' + Math.floor(100000 + Math.random() * 900000);
         setBookingRef(ref);
+
+        // Build WhatsApp message with booking details
+        const message = [
+            `📋 *NAWEZA CONSULTING — Consultation Booking*`,
+            ``,
+            `*Reference:* ${ref}`,
+            `*Service:* ${selectedService.title}`,
+            `*Entity:* ${assignedEntity.shortName}`,
+            `*Date:* ${preferredDate || 'To be finalized'}`,
+            `*Time:* ${preferredTime}`,
+            ``,
+            `*Client:* ${fullName}`,
+            `*Company:* ${company}`,
+            `*Email:* ${email}`,
+            phone ? `*Phone:* ${phone}` : '',
+            notes ? `*Notes:* ${notes}` : '',
+        ].filter(Boolean).join('\n');
+
+        const whatsappUrl = `https://wa.me/264813107977?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+
         setStep(3);
     };
 
@@ -304,7 +325,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                         </div>
 
                         <p className="text-xs text-slate-500 italic">
-                            Confirmation notification automatically dispatched to <strong>bookings@nawezaconsulting.com</strong>.
+                            Confirmation notification automatically dispatched to <strong>bookings@nawezaconsultingpty.com</strong>.
                         </p>
 
                         <button

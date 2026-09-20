@@ -325,26 +325,26 @@ export const INSIGHTS: InsightPost[] = [
 ];
 
 export const CONTACT_MAILBOXES = [
-  { label: 'General Enquiries (Primary)', email: 'info@nawezaconsulting.com', role: 'Main Brand & Information' },
-  { label: 'Sales & Proposals', email: 'sales@nawezaconsulting.com', role: 'Commercial Enquiries & Proposals' },
-  { label: 'Africa Market Development', email: 'africa@nawezaconsulting.com', role: 'International & SADC Projects' },
-  { label: 'Research & Feasibility', email: 'research@nawezaconsulting.com', role: 'Market Intelligence & Analysis' },
-  { label: 'Projects & Advisory', email: 'projects@nawezaconsulting.com', role: 'Compliance, Tax & Business Plans' },
-  { label: 'Consultations & Bookings', email: 'bookings@nawezaconsulting.com', role: 'Direct Calendar & Client Intake' },
+  { label: 'General Enquiries (Primary)', email: 'info@nawezaconsultingpty.com', role: 'Main Brand & Information' },
+  { label: 'Sales & Proposals', email: 'sales@nawezaconsultingpty.com', role: 'Commercial Enquiries & Proposals' },
+  { label: 'Africa Market Development', email: 'africa@nawezaconsultingpty.com', role: 'International & SADC Projects' },
+  { label: 'Research & Feasibility', email: 'research@nawezaconsultingpty.com', role: 'Market Intelligence & Analysis' },
+  { label: 'Projects & Advisory', email: 'projects@nawezaconsultingpty.com', role: 'Compliance, Tax & Business Plans' },
+  { label: 'Consultations & Bookings', email: 'bookings@nawezaconsultingpty.com', role: 'Direct Calendar & Client Intake' },
 ];
 
 export const PUBLIC_CONTACT_INFO = {
   primaryPhone: '+264 81 310 7977',
   whatsappNumber: '264813107977',
   whatsappUrl: 'https://wa.me/264813107977',
-  primaryEmail: 'info@nawezaconsulting.com',
-  salesEmail: 'sales@nawezaconsulting.com',
+  primaryEmail: 'info@nawezaconsultingpty.com',
+  salesEmail: 'sales@nawezaconsultingpty.com',
   location: 'Windhoek, Namibia (SADC Gateway)',
   socialLinks: {
-    facebook: 'https://facebook.com/nawezaconsulting',
-    instagram: 'https://instagram.com/nawezaconsulting',
-    linkedin: 'https://linkedin.com/company/nawezaconsulting',
-    whatsapp: 'https://wa.me/264813107977'
-  }
+      facebook: 'https://www.facebook.com/profile.php?id=100054053484353',
+      instagram: 'https://www.instagram.com/nawezaconsulting/',
+      linkedin: 'https://www.linkedin.com/in/naweza-consulting-7193092b1/',
+      whatsapp: 'https://wa.me/264813107977'
+    }
 };
 

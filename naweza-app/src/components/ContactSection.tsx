@@ -104,12 +104,12 @@ export const ContactSection: React.FC = () => {
 
                             <div className="space-y-3">
                                 <a
-                                    href="mailto:info@nawezaconsulting.com"
+                                    href="mailto:info@nawezaconsultingpty.com"
                                     className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 transition-all block group"
                                 >
                                     <div className="flex items-center justify-between">
                                         <span className="font-bold text-xs text-[#0A2540] group-hover:text-blue-700">General Enquiries (Primary)</span>
-                                        <span className="text-[11px] font-mono text-blue-600">info@nawezaconsulting.com</span>
+                                        <span className="text-[11px] font-mono text-blue-600">info@nawezaconsultingpty.com</span>
                                     </div>
                                     <span className="text-[10px] text-slate-400 block mt-0.5">Main Brand & Information Desk</span>
                                 </a>

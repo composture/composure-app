@@ -51,9 +51,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                             +264 81 310 7977
                         </a>
                         <span className="hidden sm:inline text-gray-600">•</span>
-                        <a href="mailto:info@nawezaconsulting.com" className="hover:text-white flex items-center gap-1.5 transition-colors">
+                        <a href="mailto:info@nawezaconsultingpty.com" className="hover:text-white flex items-center gap-1.5 transition-colors">
                             <Mail className="w-3.5 h-3.5 text-blue-400" />
-                            info@nawezaconsulting.com
+                            info@nawezaconsultingpty.com
                         </a>
                         <span className="hidden sm:inline text-gray-600">•</span>
                         <span className="hidden sm:flex items-center gap-1 text-gray-400">

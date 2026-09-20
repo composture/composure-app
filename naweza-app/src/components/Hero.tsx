@@ -31,13 +31,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                             <span>Your products. Our market intelligence. Africa.</span>
                         </div>
 
-                        {/* Main Headline */}
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
-                            NAWEZA CONSULTING INVESTMENTS (PTY) LTD
-                            <span className="block text-xl sm:text-2xl font-semibold text-blue-200 mt-2 font-mono tracking-wider">
-                                SYSTEMS | STRATEGY | GROWTH
-                            </span>
-                        </h1>
+                        {/* Logo + Headline */}
+                        <div className="flex flex-col items-start gap-6">
+                            {/* Circular Logo — big, as-is from the source file */}
+                            <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-400/30 flex-shrink-0">
+                                <img
+                                    src="/logo.jpeg"
+                                    alt="NAWEZA CONSULTING Logo"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            {/* Headline Text */}
+                            <div>
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
+                                    NAWEZA CONSULTING INVESTMENTS (PTY) LTD
+                                </h1>
+                                <span className="block text-xl sm:text-2xl font-semibold text-blue-200 font-mono tracking-wider mt-1">
+                                    SYSTEMS | STRATEGY | GROWTH
+                                </span>
+                            </div>
+                        </div>
 
                         {/* Short positioning statement */}
                         <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">

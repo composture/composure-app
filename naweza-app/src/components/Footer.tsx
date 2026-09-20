@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
                             <img
                                 src="/logo.jpeg"
                                 alt="NAWEZA CONSULTING INVESTMENTS (PTY) LTD"
-                                className="h-12 w-auto object-contain rounded bg-white p-1 border border-blue-500/40"
+                                className="h-16 w-16 object-contain rounded-full bg-white p-1.5 border border-blue-500/40"
                             />
                             <div>
                                 <h3 className="text-lg font-extrabold tracking-tight text-white leading-none">
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
                         <div className="space-y-1.5 text-xs text-blue-200">
                             <div className="flex items-center gap-2">
                                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                                <a href="tel:+264813107977" className="hover:underline font-bold text-white">+264 81 310 7977</a>
+                                <a href="tel:+264****7977" className="hover:underline font-bold text-white">+264 81 310 7977</a>
                                 <span className="text-gray-500">•</span>
                                 <a href={PUBLIC_CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
                                     WhatsApp Us
@@ -46,9 +46,9 @@ export const Footer: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Mail className="w-3.5 h-3.5 text-blue-400" />
-                                <a href="mailto:info@nawezaconsulting.com" className="hover:underline">info@nawezaconsulting.com</a>
+                                <a href="mailto:info@nawezaconsultingpty.com" className="hover:underline">info@nawezaconsultingpty.com</a>
                                 <span>|</span>
-                                <a href="mailto:sales@nawezaconsulting.com" className="hover:underline text-blue-300">sales@nawezaconsulting.com</a>
+                                <a href="mailto:sales@nawezaconsultingpty.com" className="hover:underline text-blue-300">sales@nawezaconsultingpty.com</a>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
                                     className="w-8 h-8 rounded-lg bg-[#0F3460] hover:bg-blue-700 text-white flex items-center justify-center border border-blue-500/30 transition-colors"
                                 >
                                     <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-1.765 7-2.777 7 2.476v6.759z"/>
                                     </svg>
                                 </a>
                                 {/* WhatsApp */}
@@ -169,4 +169,3 @@ export const Footer: React.FC = () => {
         </footer>
     );
 };
-

@@ -15,7 +15,9 @@ export const metadata: Metadata = {
     "Windhoek business consultants"
   ],
   authors: [{ name: "NAWEZA CONSULTING" }],
-  icon: "/logo.jpeg",
+  icons: {
+    icon: "/logo.jpeg",
+  },
   openGraph: {
     title: "NAWEZA CONSULTING — Systems | Strategy | Growth",
     description: "Your products. Our market intelligence. Africa. Corporate advisory, compliance, and Africa market development.",

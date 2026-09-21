@@ -28,6 +28,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     const [notes, setNotes] = useState<string>('');
 
     const [bookingRef, setBookingRef] = useState<string>('');
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'done'>('idle');
+    const [errorMsg, setErrorMsg] = useState<string>('');
 
     useEffect(() => {
         if (initialServiceId) {
@@ -35,42 +37,93 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
         }
     }, [initialServiceId]);
 
+    // Reset when modal reopens or closes
+    useEffect(() => {
+        if (isOpen) {
+            setStep(1);
+            setSelectedServiceId(initialServiceId || CORE_SERVICES[0].id);
+            setBookingRef('');
+            setErrorMsg('');
+            setSubmitStatus('idle');
+            setPreferredDate('');
+            setPreferredTime('10:00 AM');
+            setFullName('');
+            setEmail('');
+            setCompany('');
+            setPhone('');
+            setNotes('');
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     const selectedService = CORE_SERVICES.find(s => s.id === selectedServiceId) || CORE_SERVICES[0];
     const assignedEntity = LEGAL_ENTITIES[selectedService.entityId];
+    const isPtyRoute = selectedService.entityId === 'pty';
 
-    const handleSubmitBooking = (e: React.FormEvent) => {
+    const handleSubmitBooking = async (e: React.FormEvent) => {
         e.preventDefault();
+        setSubmitStatus('submitting');
+        setErrorMsg('');
+
         const ref = 'NWZ-' + Math.floor(100000 + Math.random() * 900000);
         setBookingRef(ref);
 
-        // Build WhatsApp message with booking details
-        const message = [
-            `📋 *NAWEZA CONSULTING — Consultation Booking*`,
-            ``,
-            `*Reference:* ${ref}`,
-            `*Service:* ${selectedService.title}`,
-            `*Entity:* ${assignedEntity.shortName}`,
-            `*Date:* ${preferredDate || 'To be finalized'}`,
-            `*Time:* ${preferredTime}`,
-            ``,
-            `*Client:* ${fullName}`,
-            `*Company:* ${company}`,
-            `*Email:* ${email}`,
-            phone ? `*Phone:* ${phone}` : '',
-            notes ? `*Notes:* ${notes}` : '',
-        ].filter(Boolean).join('\n');
+        try {
+            const payload = {
+                fullName,
+                email,
+                company,
+                phone,
+                serviceId: selectedServiceId,
+                preferredDate,
+                preferredTime,
+                notes,
+                bookingRef: ref,
+            };
 
-        const whatsappUrl = `https://wa.me/264813107977?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        setStep(3);
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                signal: controller.signal,
+            });
+            clearTimeout(timeoutId);
+
+            const data = await res.json();
+            console.log('Booking API response:', data);
+
+            if (!res.ok) {
+                throw new Error(data.message || `Server error (${res.status})`);
+            }
+            if (!data.success) {
+                throw new Error(data.message || 'Submission failed');
+            }
+
+            if (data.type === 'whatsapp') {
+                // Small delay so the user sees the "done" state before WhatsApp opens
+                setTimeout(() => {
+                    window.open(data.whatsappUrl, '_blank');
+                }, 400);
+            }
+            setStep(3);
+        } catch (err) {
+            setSubmitStatus('idle');
+            if (err instanceof Error && err.name === 'AbortError') {
+                setErrorMsg('Request timed out. Please check your connection and try again.');
+            } else {
+                setErrorMsg(err instanceof Error ? err.message : 'Submission failed. Please try again.');
+            }
+            console.error('Booking submission error:', err);
+        }
     };
 
     return (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 text-[#12151A] max-h-[95vh] overflow-y-auto">
+            <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 text-[#12151A]">
 
                 {/* Close Button */}
                 <button
@@ -109,7 +162,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     </div>
                 </div>
 
-                {/* STEP 1: Select Service & Date */}
+                                {/* Entity Routing Indicator */}
+                                <div className="p-3 rounded-xl mb-6 border text-xs flex items-center gap-2" 
+                                    style={{
+                                        backgroundColor: isPtyRoute ? '#EBF5FF' : '#F0F8FF',
+                                        borderColor: isPtyRoute ? '#3B82F6' : '#CBD5E1',
+                                        color: isPtyRoute ? '#1D4ED8' : '#475569'
+                                    }}>
+                                    <ShieldCheck className="w-4 h-4" />
+                                    <span>
+                                        Routing: <strong>{assignedEntity.shortName}</strong> → {isPtyRoute ? 'Email: info@nawezaconsultingpty.com' : 'WhatsApp'}
+                                    </span>
+                                </div>
+
+                                {/* STEP 1: Select Service & Date */}
                 {step === 1 && (
                     <div className="space-y-6">
                         <div>
@@ -267,6 +333,17 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             ></textarea>
                         </div>
 
+                        <div className="mt-3">
+                            {errorMsg && (
+                                <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-lg text-xs flex items-start gap-2">
+                                    <svg className="w-4 h-4 shrink-0 mt-0.5 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                                    </svg>
+                                    <span>{errorMsg}</span>
+                                </div>
+                            )}
+                        </div>
+
                         <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                             <button
                                 type="button"
@@ -278,9 +355,23 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                             <button
                                 type="submit"
-                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-7 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md"
+                                disabled={submitStatus === 'submitting'}
+                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-7 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                Confirm & Book Consultation
+                                {submitStatus === 'submitting' ? (
+                                    <span className="flex items-center gap-2">
+                                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                        </svg>
+                                        Sending...
+                                    </span>
+                                ) : (
+                                    <>
+                                        Confirm & Book Consultation
+                                        <ArrowRight className="w-4 h-4" />
+                                    </>
+                                )}
                             </button>
                         </div>
                     </form>
@@ -301,7 +392,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                 Consultation Reference: {bookingRef}
                             </h4>
                             <p className="text-xs text-slate-500 mt-1">
-                                A calendar invitation and confirmation email will be routed to <strong>{email}</strong>.
+                                {isPtyRoute
+                                    ? 'A copy of your booking request has been sent via email to our advisory team.'
+                                    : 'Your message has been pre-filled in WhatsApp. Tap send when ready.'}
                             </p>
                         </div>
 
@@ -325,7 +418,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                         </div>
 
                         <p className="text-xs text-slate-500 italic">
-                            Confirmation notification automatically dispatched to <strong>bookings@nawezaconsultingpty.com</strong>.
+                            Routing: <strong>{assignedEntity.shortName}</strong> → {isPtyRoute ? 'Email' : 'WhatsApp'} — {isPtyRoute ? 'info@nawezaconsultingpty.com' : '+264 81 310 7977'}
                         </p>
 
                         <button

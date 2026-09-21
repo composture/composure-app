@@ -1,15 +1,14 @@
 'use me';
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Mail, MapPin, Phone, Send, CheckCircle2,
-    Globe, Shield, Building2
+    Globe, Shield, Building2, AlertCircle
 } from 'lucide-react';
 import { CONTACT_MAILBOXES, LEGAL_ENTITIES, PUBLIC_CONTACT_INFO } from '@/data/content';
 
 export const ContactSection: React.FC = () => {
-    const [submitted, setSubmitted] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,19 +17,53 @@ export const ContactSection: React.FC = () => {
         message: ''
     });
 
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
+        setSubmitStatus('submitting');
+
+        const ref = 'NWZ-' + Math.floor(100000 + Math.random() * 900000);
+
+        const messageText = [
+            `📋 *NAWEZA CONSULTING — ${formData.subject ? formData.subject.toUpperCase() + ' Inquiry' : 'Advisory Enquiry'}*`,
+            '',
+            `*Reference:* ${ref}`,
+            `*Client:* ${formData.name}`,
+            `*Email:* ${formData.email}`,
+            formData.phone ? `*Phone:* ${formData.phone}` : '',
+            formData.subject ? `*Subject:* ${formData.subject}` : '',
+            '',
+            `*Message:*`,
+            formData.message,
+        ].filter(Boolean).join('\n');
+
+        const encoded = encodeURIComponent(messageText);
+        const whatsappUrl = `https://wa.me/264813107977?text=${encoded}`;
+
+        // Open WhatsApp in new tab
+        const tab = window.open(whatsappUrl, '_blank');
+
+        // Fallback if popup blocked
+        if (!tab || tab.closed || typeof tab.closed === 'undefined') {
+            setSubmitStatus('error');
+            setTimeout(() => setSubmitStatus('idle'), 3000);
+            return;
+        }
+
+        setSubmitStatus('success');
+
+        // Reset form after short delay
         setTimeout(() => {
-            setSubmitted(false);
+            setSubmitStatus('idle');
             setFormData({
                 name: '',
                 email: '',
                 phone: '',
                 subject: '',
-                message: ''
+                message: '',
             });
-        }, 4000);
+        }, 3000);
     };
 
     return (
@@ -65,7 +98,7 @@ export const ContactSection: React.FC = () => {
                             <div className="flex items-center justify-between bg-[#0F3460] p-3.5 rounded-xl border border-blue-800">
                                 <div>
                                     <span className="text-[10px] text-slate-300 uppercase tracking-wider block">Primary Phone / WhatsApp</span>
-                                    <a href="tel:+264813107977" className="font-bold text-base text-white hover:text-emerald-300 transition-colors">
+                                    <a href="tel:+264****7977" className="font-bold text-base text-white hover:text-emerald-300 transition-colors">
                                         +264 81 310 7977
                                     </a>
                                 </div>
@@ -123,18 +156,33 @@ export const ContactSection: React.FC = () => {
                         <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xl">
                             <h3 className="text-xl font-bold text-[#0A2540] mb-2">Send an Advisory Enquiry</h3>
                             <p className="text-xs text-slate-500 mb-6">
-                                Complete the form below to route your request directly to our advisory desk.
+                                Complete the form below — your message opens in WhatsApp. Tap send when ready.
                             </p>
 
-                            {submitted ? (
+                            {/* Success State */}
+                            {submitStatus === 'success' && (
                                 <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-xl text-center space-y-3">
                                     <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
-                                    <h4 className="font-bold text-lg">Enquiry Received</h4>
+                                    <h4 className="font-bold text-lg">Enquiry Sent</h4>
                                     <p className="text-xs text-emerald-700">
-                                        Thank you. Your message has been sent to our advisory team. A representative will contact you within 24 hours.
+                                        WhatsApp opened with your message pre-filled. Tap send to reach our team.
                                     </p>
                                 </div>
-                            ) : (
+                            )}
+
+                            {/* Error State (popup blocked) */}
+                            {submitStatus === 'error' && (
+                                <div className="bg-red-50 border border-red-200 text-red-800 p-6 rounded-xl text-center space-y-3">
+                                    <AlertCircle className="w-10 h-10 text-red-600 mx-auto" />
+                                    <h4 className="font-bold text-lg">WhatsApp Could Not Open</h4>
+                                    <p className="text-xs text-red-700">
+                                        Please allow popups for this site, or copy the number below and message us directly: +264 81 310 7977
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Form */}
+                            {submitStatus !== 'success' && submitStatus !== 'error' && (
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div>
@@ -211,10 +259,23 @@ export const ContactSection: React.FC = () => {
 
                                     <button
                                         type="submit"
-                                        className="w-full bg-[#0A2540] hover:bg-[#0F3460] text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
+                                        disabled={submitStatus === 'submitting'}
+                                        className="w-full bg-[#0A2540] hover:bg-[#0F3460] text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        <Send className="w-4 h-4" />
-                                        Send Message
+                                        {submitStatus === 'submitting' ? (
+                                            <span className="flex items-center gap-2">
+                                                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                                </svg>
+                                                Opening WhatsApp...
+                                            </span>
+                                        ) : (
+                                            <>
+                                                <Send className="w-4 h-4" />
+                                                Send via WhatsApp
+                                            </>
+                                        )}
                                     </button>
                                 </form>
                             )}

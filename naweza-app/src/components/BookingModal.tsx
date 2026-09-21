@@ -20,7 +20,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     const [preferredDate, setPreferredDate] = useState<string>('');
     const [preferredTime, setPreferredTime] = useState<string>('10:00 AM');
 
-    // Client Form Details
     const [fullName, setFullName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [company, setCompany] = useState<string>('');
@@ -37,7 +36,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
         }
     }, [initialServiceId]);
 
-    // Reset when modal reopens or closes
     useEffect(() => {
         if (isOpen) {
             setStep(1);
@@ -91,10 +89,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                 body: JSON.stringify(payload),
                 signal: controller.signal,
             });
+            const data = await res.json();
             clearTimeout(timeoutId);
 
-            const data = await res.json();
-            console.log('Booking API response:', data);
+            if (process.env.NODE_ENV === 'development') {
+                console.log('Booking API response:', data);
+            }
 
             if (!res.ok) {
                 throw new Error(data.message || `Server error (${res.status})`);
@@ -104,10 +104,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
             }
 
             if (data.type === 'whatsapp') {
-                // Small delay so the user sees the "done" state before WhatsApp opens
-                setTimeout(() => {
-                    window.open(data.whatsappUrl, '_blank');
-                }, 400);
+                const tab = window.open(data.whatsappUrl, '_blank');
+                if (!tab || tab.closed || typeof tab.closed === 'undefined') {
+                    setSubmitStatus('idle');
+                    setErrorMsg('WhatsApp popup was blocked. Please allow popups for this site, or message us directly: +264 81 310 7977');
+                    return;
+                }
             }
             setStep(3);
         } catch (err) {
@@ -117,7 +119,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
             } else {
                 setErrorMsg(err instanceof Error ? err.message : 'Submission failed. Please try again.');
             }
-            console.error('Booking submission error:', err);
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Booking submission error:', err);
+            }
         }
     };
 
@@ -125,7 +129,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 text-[#12151A]">
 
-                {/* Close Button */}
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 rounded-full hover:bg-slate-100 transition-colors"
@@ -133,7 +136,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     <X className="w-5 h-5" />
                 </button>
 
-                {/* Modal Header */}
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
                     <div className="w-10 h-10 rounded-xl bg-[#0A2540] text-white flex items-center justify-center font-bold">
                         <Calendar className="w-5 h-5 text-blue-300" />
@@ -144,7 +146,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     </div>
                 </div>
 
-                {/* Step Progress Indicator */}
                 <div className="flex items-center justify-between mb-8 px-4">
                     <div className={`flex items-center gap-2 text-xs font-bold ${step >= 1 ? 'text-[#0A2540]' : 'text-slate-400'}`}>
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 1 ? 'bg-[#0A2540] text-white' : 'bg-slate-200'}`}>1</span>
@@ -162,7 +163,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     </div>
                 </div>
 
-                                {/* Entity Routing Indicator */}
                                 <div className="p-3 rounded-xl mb-6 border text-xs flex items-center gap-2" 
                                     style={{
                                         backgroundColor: isPtyRoute ? '#EBF5FF' : '#F0F8FF',
@@ -175,8 +175,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                     </span>
                                 </div>
 
-                                {/* STEP 1: Select Service & Date */}
-                {step === 1 && (
+                                {step === 1 && (
                     <div className="space-y-6">
                         <div>
                             <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-2">
@@ -205,7 +204,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             </div>
                         </div>
 
-                        {/* Entity Disclosure Note */}
                         <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 flex items-start gap-2">
                             <ShieldCheck className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
                             <div>
@@ -214,7 +212,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             </div>
                         </div>
 
-                        {/* Date & Time Picker */}
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
@@ -258,7 +255,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     </div>
                 )}
 
-                {/* STEP 2: Client Details */}
                 {step === 2 && (
                     <form onSubmit={handleSubmitBooking} className="space-y-4">
                         <div className="grid sm:grid-cols-2 gap-4">
@@ -269,6 +265,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                 <input
                                     type="text"
                                     required
+                                    maxLength={100}
                                     placeholder="e.g. John Doe"
                                     value={fullName}
                                     onChange={(e) => setFullName(e.target.value)}
@@ -283,6 +280,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                 <input
                                     type="email"
                                     required
+                                    maxLength={100}
                                     placeholder="name@company.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -299,6 +297,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                 <input
                                     type="text"
                                     required
+                                    maxLength={100}
                                     placeholder="e.g. Acme Corp"
                                     value={company}
                                     onChange={(e) => setCompany(e.target.value)}
@@ -312,6 +311,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                 </label>
                                 <input
                                     type="tel"
+                                    maxLength={20}
                                     placeholder="+264 81 123 4567"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -326,6 +326,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             </label>
                             <textarea
                                 rows={3}
+                                maxLength={500}
                                 placeholder="Briefly describe your objectives or statutory/market questions..."
                                 value={notes}
                                 onChange={(e) => setNotes(e.target.value)}
@@ -377,7 +378,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                     </form>
                 )}
 
-                {/* STEP 3: Confirmation Receipt */}
                 {step === 3 && (
                     <div className="text-center py-6 space-y-6">
                         <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">

@@ -338,7 +338,7 @@ export const PUBLIC_CONTACT_INFO = {
   whatsappNumber: '264813107977',
   whatsappUrl: 'https://wa.me/264813107977',
   primaryEmail: 'info@nawezaconsultingpty.com',
-  salesEmail: 'sales@nawezaconsultingpty.com',
+  salesEmail: '',
   location: 'Windhoek, Namibia (SADC Gateway)',
   socialLinks: {
       facebook: 'https://www.facebook.com/profile.php?id=100054053484353',

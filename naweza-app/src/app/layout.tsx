@@ -2,27 +2,30 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NAWEZA CONSULTING — Systems | Strategy | Growth",
-  description: "A Namibian business platform combining practical corporate advisory, compliance, tax support, research, and cross-border Africa market development.",
+  title: "Composure — AI, Software & Automation",
+  description: "Composure (Pty) Ltd builds AI-powered software, websites, automations, and business systems for companies in Namibia and beyond. AI integration, web development, process automation, custom software, and mobile apps.",
   keywords: [
-    "Naweza Consulting",
-    "Naweza Investments CC",
-    "Naweza Consulting Investments (Pty) Ltd",
-    "Namibia business advisory",
-    "BIPA registration compliance",
-    "NamRA tax support",
-    "Africa market development SADC",
-    "Windhoek business consultants"
+    "Composure",
+    "Composure (Pty) Ltd",
+    "AI integration Namibia",
+    "software development Namibia",
+    "business automation Windhoek",
+    "custom software Namibia",
+    "mobile app development Namibia",
+    "website development Namibia",
+    "AI agents for business",
+    "POS system Namibia",
+    "n8n automation"
   ],
-  authors: [{ name: "NAWEZA CONSULTING" }],
+  authors: [{ name: "Composure (Pty) Ltd" }],
   icons: {
     icon: "/logo.jpeg",
   },
   openGraph: {
-    title: "NAWEZA CONSULTING — Systems | Strategy | Growth",
-    description: "Your products. Our market intelligence. Africa. Corporate advisory, compliance, and Africa market development.",
-    url: "https://www.nawezaconsulting.com",
-    siteName: "NAWEZA CONSULTING",
+    title: "Composure — AI, Software & Automation",
+    description: "AI integration, websites, automation, custom software, and mobile apps for Namibian businesses. Book a free consultation.",
+    url: "https://www.composuretech.com",
+    siteName: "Composure",
     locale: "en_US",
     type: "website",
   },

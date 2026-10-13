@@ -3,10 +3,10 @@
 
 import React, { useState } from 'react';
 import {
-    ShieldCheck, Calculator, TrendingUp, FileSearch, FileText,
-    Briefcase, Globe, ArrowRight, Check, X, Calendar, Info
+    Bot, Globe, Workflow, Code, Smartphone, BarChart3, Sparkles,
+    ArrowRight, Check, X, Calendar
 } from 'lucide-react';
-import { CORE_SERVICES, ServiceItem, LEGAL_ENTITIES } from '@/data/content';
+import { CORE_SERVICES, ServiceItem } from '@/data/content';
 
 interface ServicesSectionProps {
     onOpenBooking: (serviceId?: string) => void;
@@ -18,14 +18,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
     // Icon map lookup
     const getIcon = (iconName: string) => {
         switch (iconName) {
-            case 'ShieldCheck': return <ShieldCheck className="w-6 h-6 text-blue-700" />;
-            case 'Calculator': return <Calculator className="w-6 h-6 text-blue-700" />;
-            case 'TrendingUp': return <TrendingUp className="w-6 h-6 text-blue-700" />;
-            case 'FileSearch': return <FileSearch className="w-6 h-6 text-blue-700" />;
-            case 'FileText': return <FileText className="w-6 h-6 text-blue-700" />;
-            case 'Briefcase': return <Briefcase className="w-6 h-6 text-blue-700" />;
-            case 'Globe': return <Globe className="w-6 h-6 text-emerald-600" />;
-            default: return <Briefcase className="w-6 h-6 text-blue-700" />;
+            case 'Bot': return <Bot className="w-6 h-6 text-blue-700" />;
+            case 'Globe': return <Globe className="w-6 h-6 text-blue-700" />;
+            case 'Workflow': return <Workflow className="w-6 h-6 text-blue-700" />;
+            case 'Code': return <Code className="w-6 h-6 text-blue-700" />;
+            case 'Smartphone': return <Smartphone className="w-6 h-6 text-blue-700" />;
+            case 'BarChart3': return <BarChart3 className="w-6 h-6 text-blue-700" />;
+            case 'Sparkles': return <Sparkles className="w-6 h-6 text-blue-700" />;
+            default: return <Code className="w-6 h-6 text-blue-700" />;
         }
     };
 
@@ -36,59 +36,57 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <span className="bg-[#0A2540] text-white text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block mb-3">
-                        Core Service Offerings
+                        What We Build
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0A2540] tracking-tight">
-                        Tailored Advisory, Financial & Market Solutions
+                        AI, Software & Automation Services
                     </h2>
                     <p className="mt-4 text-base text-slate-600 leading-relaxed">
-                        Seven structured corporate service areas designed to maintain compliance, secure funding, optimize financial health, and expand commercial presence across Africa.
+                        Seven core service areas covering everything from AI integration and automation to custom software, websites, and mobile apps — all built around how your business works.
                     </p>
                 </div>
 
                 {/* Services Grid (7 items) */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {CORE_SERVICES.map((service) => {
-                        const isPty = service.entityId === 'pty';
-                        const entity = LEGAL_ENTITIES[service.entityId];
+                    {CORE_SERVICES.map((service, idx) => {
+                        const isFeatured = idx === 0;
 
                         return (
                             <div
                                 key={service.id}
-                                className={`rounded-2xl p-6 sm:p-8 border transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 ${isPty
+                                className={`rounded-2xl p-6 sm:p-8 border transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 ${isFeatured
                                         ? 'bg-gradient-to-br from-slate-900 to-[#0A2540] text-white border-emerald-500/40 shadow-xl'
                                         : 'bg-[#F8F9FA] hover:bg-white text-[#12151A] border-slate-200 hover:border-blue-400 hover:shadow-xl'
                                     }`}
                             >
                                 <div>
-                                    {/* Entity Tag & Icon */}
+                                    {/* Icon */}
                                     <div className="flex items-center justify-between mb-6">
-                                        <div className={`p-3 rounded-xl ${isPty ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-100 text-[#0A2540]'}`}>
+                                        <div className={`p-3 rounded-xl ${isFeatured ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-100 text-[#0A2540]'}`}>
                                             {getIcon(service.iconName)}
                                         </div>
-                                        <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${isPty
-                                                ? 'bg-emerald-500 text-slate-950'
-                                                : 'bg-blue-100 text-[#0A2540]'
-                                            }`}>
-                                            {entity.shortName}
-                                        </span>
+                                        {isFeatured && (
+                                            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500 text-slate-950">
+                                                Most Requested
+                                            </span>
+                                        )}
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className={`text-xl font-bold mb-3 ${isPty ? 'text-white' : 'text-[#0A2540]'}`}>
+                                    <h3 className={`text-xl font-bold mb-3 ${isFeatured ? 'text-white' : 'text-[#0A2540]'}`}>
                                         {service.title}
                                     </h3>
 
                                     {/* Description */}
-                                    <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${isPty ? 'text-slate-300' : 'text-slate-600'}`}>
+                                    <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${isFeatured ? 'text-slate-300' : 'text-slate-600'}`}>
                                         {service.shortDescription}
                                     </p>
 
                                     {/* Top Deliverables */}
                                     <ul className="space-y-2 mb-6">
                                         {service.deliverables.slice(0, 3).map((item, idx) => (
-                                            <li key={idx} className={`text-xs flex items-center gap-2 ${isPty ? 'text-slate-300' : 'text-slate-700'}`}>
-                                                <Check className={`w-3.5 h-3.5 shrink-0 ${isPty ? 'text-emerald-400' : 'text-blue-600'}`} />
+                                            <li key={idx} className={`text-xs flex items-center gap-2 ${isFeatured ? 'text-slate-300' : 'text-slate-700'}`}>
+                                                <Check className={`w-3.5 h-3.5 shrink-0 ${isFeatured ? 'text-emerald-400' : 'text-blue-600'}`} />
                                                 <span>{item}</span>
                                             </li>
                                         ))}
@@ -99,7 +97,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                                 <div className="pt-4 border-t border-slate-200/40 flex items-center justify-between">
                                     <button
                                         onClick={() => setSelectedService(service)}
-                                        className={`text-xs font-bold flex items-center gap-1 hover:underline ${isPty ? 'text-emerald-300 hover:text-white' : 'text-blue-700 hover:text-[#0A2540]'
+                                        className={`text-xs font-bold flex items-center gap-1 hover:underline ${isFeatured ? 'text-emerald-300 hover:text-white' : 'text-blue-700 hover:text-[#0A2540]'
                                             }`}
                                     >
                                         View Deliverables
@@ -108,7 +106,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
 
                                     <button
                                         onClick={() => onOpenBooking(service.id)}
-                                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${isPty
+                                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${isFeatured
                                                 ? 'bg-emerald-500 text-slate-950 hover:bg-emerald-400'
                                                 : 'bg-[#0A2540] text-white hover:bg-[#0F3460]'
                                             }`}
@@ -143,7 +141,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                             </div>
                             <div>
                                 <span className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-                                    {LEGAL_ENTITIES[selectedService.entityId].name}
+                                    Composure (Pty) Ltd
                                 </span>
                                 <h3 className="text-2xl font-bold text-[#0A2540]">{selectedService.title}</h3>
                             </div>
@@ -164,7 +162,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                         </div>
 
                         <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-                            <span className="text-xs text-slate-500">Contracting Entity: <strong>{LEGAL_ENTITIES[selectedService.entityId].shortName}</strong></span>
+                            <span className="text-xs text-slate-500">Delivered by <strong>Composure (Pty) Ltd</strong></span>
                             <button
                                 onClick={() => {
                                     const serviceId = selectedService.id;
@@ -174,7 +172,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                                 className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-6 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2"
                             >
                                 <Calendar className="w-4 h-4" />
-                                Book This Service
+                                Enquire About This Service
                             </button>
                         </div>
 

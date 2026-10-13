@@ -1,16 +1,3 @@
-export interface LegalEntity {
-  id: string;
-  name: string;
-  shortName: string;
-  establishedYear: number;
-  role: string;
-  positioningText: string;
-  isRegistrationComplete: boolean;
-  registrationNumber?: string;
-  jurisdiction: string;
-  badgeText: string;
-}
-
 export interface ServiceItem {
   id: string;
   title: string;
@@ -19,22 +6,6 @@ export interface ServiceItem {
   fullDescription: string;
   iconName: string;
   deliverables: string[];
-  entityId: string; // 'cc' or 'pty'
-  category: 'core' | 'international';
-}
-
-export interface CaseStudy {
-  id: string;
-  clientName: string;
-  slug: string;
-  title: string;
-  summary: string;
-  fullStory: string;
-  servicesProvided: string[];
-  entityId: string; // 'cc'
-  permissionConfirmed: boolean;
-  impactMetrics: { label: string; value: string }[];
-  tags: string[];
 }
 
 export interface InsightPost {
@@ -49,297 +20,245 @@ export interface InsightPost {
   author: string;
 }
 
-export const LEGAL_ENTITIES: Record<string, LegalEntity> = {
-  cc: {
-    id: 'cc',
-    name: 'Naweza Investments CC',
-    shortName: 'Naweza Investments CC',
-    establishedYear: 2018,
-    role: 'Established Business / Track Record & Namibia Operations',
-    positioningText: 'Namibia operations, business advisory, compliance, taxation, bookkeeping, proposals, research, feasibility and operational support.',
-    isRegistrationComplete: true,
-    registrationNumber: 'CC/2018/04912',
-    jurisdiction: 'Windhoek, Namibia',
-    badgeText: 'Operating since 2018',
-  },
-  pty: {
-    id: 'pty',
-    name: 'Naweza Consulting Investments (Pty) Ltd',
-    shortName: 'Naweza Consulting Investments (Pty) Ltd',
-    establishedYear: 2026,
-    role: 'International-Facing / Project Development Arm',
-    positioningText: 'Naweza Consulting Investments (Pty) Ltd is the international-facing arm of the Naweza brand, building on the experience and local track record established through Naweza Investments CC in Namibia.',
-    isRegistrationComplete: false, // In final registration process as per brief rules
-    registrationNumber: 'Pending Finalisation (2026)',
-    jurisdiction: 'Namibia & SADC Region',
-    badgeText: 'Established 2026',
-  },
+export const BRAND = {
+  name: 'Composure (Pty) Ltd',
+  shortName: 'Composure',
+  tagline: 'AI | Software | Automation',
+  establishedYear: 2026,
+  jurisdiction: 'Windhoek, Namibia',
+  positioningText: 'Composure (Pty) Ltd builds AI-powered software, websites, automations, and business systems for companies in Namibia and beyond.',
 };
 
 export const CORE_SERVICES: ServiceItem[] = [
   {
-    id: 'business-compliance',
-    title: 'Business Compliance & Advisory',
-    slug: 'business-compliance-advisory',
-    shortDescription: 'Compliance support, business formalisation, regulatory structuring, and practical corporate advisory.',
-    fullDescription: 'Comprehensive compliance and advisory services for Namibian enterprises and scaling startups. We ensure your entity adheres to statutory obligations, BIPA requirements, licensing, and corporate governance standards while providing actionable growth advice.',
-    iconName: 'ShieldCheck',
+    id: 'ai-integration',
+    title: 'AI Integration & Agents',
+    slug: 'ai-integration-agents',
+    shortDescription: 'Put AI to work inside your business — chatbots, assistants, document processing, and smart decision support.',
+    fullDescription: 'We integrate practical AI into the tools you already use. From customer-facing chatbots and WhatsApp assistants to internal document processing and automated reporting, we build AI solutions that reduce manual work and speed up operations — without the hype, and with full control over your data.',
+    iconName: 'Bot',
     deliverables: [
-      'BIPA Registration & Compliance Audits',
-      'Corporate Governance & Governance Frameworks',
-      'Regulatory License & Permit Applications',
-      'Business Formalisation & Operational Structuring'
+      'Custom AI Chatbots & WhatsApp Assistants',
+      'LLM-Powered Document & Data Processing',
+      'AI Search, Summarisation & Q&A Systems',
+      'AI Integration with Existing Systems (CRM, ERP, POS)'
     ],
-    entityId: 'cc',
-    category: 'core'
   },
   {
-    id: 'taxation-financials',
-    title: 'Taxation & Financials',
-    slug: 'taxation-financials',
-    shortDescription: 'Tax support, bookkeeping, financial information preparation, and statutory reporting.',
-    fullDescription: 'Dependable bookkeeping and taxation advisory tailored to Namibian tax laws. We prepare accurate financial statements, manage tax returns (PAYE, VAT, IT), and ensure full audit-readiness.',
-    iconName: 'Calculator',
-    deliverables: [
-      'Monthly Bookkeeping & Management Accounts',
-      'Namibia Revenue Agency (NamRA) Tax Filings',
-      'VAT & PAYE Compliance',
-      'Financial Statement Preparation & Review'
-    ],
-    entityId: 'cc',
-    category: 'core'
-  },
-  {
-    id: 'business-plans',
-    title: 'Business Plans & Projections',
-    slug: 'business-plans-projections',
-    shortDescription: 'Bankable business plans, budgets, financial projections, and feasibility studies.',
-    fullDescription: 'Rigorous commercial business plans designed to secure financing from commercial banks, development funds (DBN), and institutional investors. Includes detailed 5-year financial modeling.',
-    iconName: 'TrendingUp',
-    deliverables: [
-      'Bankable Business Plans & Investor Pitch Decks',
-      '5-Year Cash Flow & Profit Projections',
-      'Capital Expenditure & Budget Modeling',
-      'Financial Feasibility Analysis'
-    ],
-    entityId: 'cc',
-    category: 'core'
-  },
-  {
-    id: 'research-analysis',
-    title: 'Research & Analysis',
-    slug: 'research-analysis',
-    shortDescription: 'Market research, business research, feasibility research, and commercial opportunity analysis.',
-    fullDescription: 'Data-driven market intelligence for Namibian and regional commerce. We evaluate market size, competitive landscapes, regulatory environments, and consumer behavior.',
-    iconName: 'FileSearch',
-    deliverables: [
-      'Industry & Competitor Benchmarking',
-      'Macro & Micro Economic Feasibility Reports',
-      'Consumer & Market Demand Analysis',
-      'Risk Assessment & Mitigation Models'
-    ],
-    entityId: 'cc',
-    category: 'core'
-  },
-  {
-    id: 'project-proposals',
-    title: 'Project Proposals',
-    slug: 'project-proposals',
-    shortDescription: 'Structured grant proposals, tender bids, and supporting business documentation.',
-    fullDescription: 'High-impact technical and financial project proposals engineered to win competitive tenders, donor grants, and private sector procurement contracts.',
-    iconName: 'FileText',
-    deliverables: [
-      'Public & Private Tender Bid Dossiers',
-      'Grant & Donor Funding Proposals',
-      'Technical Feasibility Documentation',
-      'Stakeholder Alignment Frameworks'
-    ],
-    entityId: 'cc',
-    category: 'core'
-  },
-  {
-    id: 'back-office',
-    title: 'Business Management & Back Office',
-    slug: 'business-management-back-office',
-    shortDescription: 'Documentation, administration, CRM/lead follow-up, and operational support.',
-    fullDescription: 'Turnkey operational and administrative support for lean enterprises. We streamline client management, contract administration, and workflow organization.',
-    iconName: 'Briefcase',
-    deliverables: [
-      'Administrative & Executive Assistance',
-      'CRM System Setup & Lead Tracking',
-      'Document Digitization & Management',
-      'Operational Process Standardization'
-    ],
-    entityId: 'cc',
-    category: 'core'
-  },
-  {
-    id: 'africa-market-dev',
-    title: 'Africa Market Development',
-    slug: 'africa-market-development',
-    shortDescription: 'Market intelligence, partner identification, opportunity scouting, and local market support for global firms.',
-    fullDescription: 'Specialised cross-border market entry and commercial representation for international manufacturers, suppliers, technology providers, and investors entering Namibia and the wider SADC region.',
+    id: 'web-development',
+    title: 'Website & Web App Development',
+    slug: 'website-web-app-development',
+    shortDescription: 'Modern, fast, mobile-first websites and web applications that convert visitors into customers.',
+    fullDescription: 'We design and build professional websites, e-commerce stores, and full web applications using modern technologies. Every site is responsive, search-engine friendly, and built to grow with your business — from a landing page to a full client portal.',
     iconName: 'Globe',
     deliverables: [
-      'SADC & Namibian Opportunity Scouting',
-      'Distributor, Agent & Local Partner Vetting',
-      'Project & Infrastructure Tender Intelligence',
-      'Local Commercial Representation & Follow-up'
+      'Corporate & Business Websites',
+      'E-Commerce & Online Stores',
+      'Web Applications & Client Portals',
+      'Hosting, Domains & Ongoing Maintenance'
     ],
-    entityId: 'pty',
-    category: 'international'
+  },
+  {
+    id: 'automation',
+    title: 'Business Process Automation',
+    slug: 'business-process-automation',
+    shortDescription: 'Eliminate repetitive manual work — connect your apps and automate the tasks that eat your team\'s day.',
+    fullDescription: 'We map your manual processes — quotes, invoices, follow-ups, stock updates, reporting — and automate them end-to-end. Your systems talk to each other, data flows automatically, and your team focuses on work that actually matters.',
+    iconName: 'Workflow',
+    deliverables: [
+      'Workflow Automation (n8n, Make, Zapier)',
+      'System & API Integrations',
+      'Automated Invoicing, Quotes & Notifications',
+      'WhatsApp, Email & SMS Automation'
+    ],
+  },
+  {
+    id: 'custom-software',
+    title: 'Custom Software & Business Systems',
+    slug: 'custom-software-business-systems',
+    shortDescription: 'POS, inventory, CRM, and internal systems built exactly around how your business operates.',
+    fullDescription: 'Off-the-shelf software rarely fits. We build custom systems — point-of-sale, inventory management, booking platforms, customer databases — designed around your actual workflow, running online or offline, on desktop or mobile.',
+    iconName: 'Code',
+    deliverables: [
+      'Point-of-Sale & Inventory Systems',
+      'CRM & Customer Management Platforms',
+      'Booking, Scheduling & Field Service Apps',
+      'Offline-First & Multi-Branch Solutions'
+    ],
+  },
+  {
+    id: 'mobile-apps',
+    title: 'Mobile App Development',
+    slug: 'mobile-app-development',
+    shortDescription: 'Native-quality Android and iOS apps for your customers, staff, and field operations.',
+    fullDescription: 'We build mobile apps that work in real conditions — including offline use and poor connectivity. Customer apps, staff apps, field data collection, delivery tracking, and anything your business needs in your customers\' or team\'s pocket.',
+    iconName: 'Smartphone',
+    deliverables: [
+      'Android & iOS App Development',
+      'Offline-Capable Field & Staff Apps',
+      'App Store & Play Store Publishing',
+      'Push Notifications & App Maintenance'
+    ],
+  },
+  {
+    id: 'data-dashboards',
+    title: 'Data, Dashboards & Reporting',
+    slug: 'data-dashboards-reporting',
+    shortDescription: 'Turn scattered spreadsheets and systems into live dashboards that show what\'s actually happening.',
+    fullDescription: 'We consolidate your sales, stock, financial, and operational data into clear, real-time dashboards and automated reports. See performance, spot problems early, and make decisions based on facts — not yesterday\'s spreadsheet.',
+    iconName: 'BarChart3',
+    deliverables: [
+      'Real-Time Business Dashboards',
+      'Automated Daily / Weekly Reports',
+      'Data Consolidation from Multiple Systems',
+      'Spreadsheet-to-System Migration'
+    ],
+  },
+  {
+    id: 'ai-strategy',
+    title: 'AI Strategy & Digital Transformation',
+    slug: 'ai-strategy-digital-transformation',
+    shortDescription: 'Not sure where AI fits in your business? We audit, plan, and prioritise — then build what pays off first.',
+    fullDescription: 'Before building, we help you see the full picture. We audit your current processes, identify the highest-impact automation and AI opportunities, and deliver a practical roadmap with priorities, timelines, and expected returns — no jargon, no overspending.',
+    iconName: 'Sparkles',
+    deliverables: [
+      'AI & Automation Opportunity Audits',
+      'Digital Transformation Roadmaps',
+      'Technology Selection & Vendor Guidance',
+      'Team Training & Change Support'
+    ],
   }
 ];
 
-export const AFRICA_MARKET_CAPABILITIES = [
+export const INDUSTRIES = [
   {
-    title: 'Market Research & Analysis',
-    description: 'In-depth market mapping, regulatory assessments, and sector intelligence tailored for international companies.',
+    id: 'retail',
+    title: 'Retail & POS',
+    description: 'Point-of-sale, inventory, multi-branch stock control, and daily sales reporting for shops, bars, and chains.',
+    icon: 'ShoppingCart'
+  },
+  {
+    id: 'hospitality',
+    title: 'Hospitality & Tourism',
+    description: 'Booking systems, guest management, and WhatsApp assistants for lodges, restaurants, and tour operators.',
+    icon: 'Palmtree'
+  },
+  {
+    id: 'logistics',
+    title: 'Logistics & Transport',
+    description: 'Fleet tracking, delivery management, dispatch automation, and field-driver apps built for real road conditions.',
+    icon: 'Truck'
+  },
+  {
+    id: 'agriculture',
+    title: 'Agriculture',
+    description: 'Farm record-keeping, livestock and produce tracking, seasonal reporting, and SMS/WhatsApp field updates.',
+    icon: 'Sprout'
+  },
+  {
+    id: 'mining',
+    title: 'Mining & Construction',
+    description: 'Project tracking, equipment logs, site attendance, and contractor management systems.',
+    icon: 'HardHat'
+  },
+  {
+    id: 'education',
+    title: 'Education',
+    description: 'School administration, fee tracking, parent communication, and student record systems for private institutions.',
+    icon: 'GraduationCap'
+  },
+  {
+    id: 'healthcare',
+    title: 'Healthcare & Clinics',
+    description: 'Patient records, appointment booking, reminders, and clinic management platforms that work offline.',
+    icon: 'HeartPulse'
+  },
+  {
+    id: 'professional',
+    title: 'Professional Services',
+    description: 'Document automation, proposal generation, client portals, and AI research assistants for firms and consultancies.',
+    icon: 'Briefcase'
+  }
+];
+
+export const PROCESS_STEPS = [
+  {
+    id: 'discover',
+    stepNumber: '01',
+    title: 'Discover',
+    description: 'We start with a free consultation. We learn how your business actually runs — your processes, systems, pain points, and goals — before recommending anything.',
     icon: 'Search'
   },
   {
-    title: 'Opportunity Scouting',
-    description: 'Active identification of high-potential commercial projects, public-private partnerships (PPPs), and commercial gaps in Namibia & SADC.',
-    icon: 'Compass'
-  },
-  {
-    title: 'Distributor / Dealer / Partner Identification',
-    description: 'Vetting and pairing global suppliers and OEMs with credible local distributors, agents, and joint-venture partners.',
-    icon: 'Users'
-  },
-  {
-    title: 'Contractor / EPC / Local Partner Research',
-    description: 'Technical and financial diligence on local Engineering, Procurement, Construction (EPC) firms and subcontractors.',
-    icon: 'Building2'
-  },
-  {
-    title: 'Project & Tender Intelligence',
-    description: 'Early-stage monitoring of upcoming government tenders, industrial capital projects, renewable energy, and infrastructure initiatives.',
-    icon: 'FileBadge'
-  },
-  {
-    title: 'Lead Generation & Follow-up',
-    description: 'Structured outreach, meeting facilitation, and sustained commercial follow-up with Namibian decision-makers.',
-    icon: 'Target'
-  },
-  {
-    title: 'Research & Proposal Writing',
-    description: 'Tailoring international technical proposals to conform with Namibian legal frameworks and procurement norms.',
+    id: 'design',
+    stepNumber: '02',
+    title: 'Design',
+    description: 'You get a clear plan: what we will build, what it costs, how long it takes, and the results you should expect. No surprises, no scope creep.',
     icon: 'PenTool'
   },
   {
-    title: 'Local Market Support',
-    description: 'On-the-ground operational representation, stakeholder engagement, and advisory throughout contract execution.',
-    icon: 'MapPin'
-  }
-];
-
-export const CASE_STUDIES: CaseStudy[] = [
-  {
-    id: 'sorris-sorris',
-    clientName: 'Sorris Sorris Conservancy',
-    slug: 'sorris-sorris-conservancy',
-    title: 'Funding Proposals & Financial Feasibility Study',
-    summary: 'Developed comprehensive funding proposals, financial feasibility models, and regulatory stakeholder alignment for community eco-tourism and resource management.',
-    fullStory: 'Naweza Investments CC worked closely with the leadership of Sorris Sorris Conservancy to structure bankable funding proposals and financial feasibility assessments. Our team established rigorous cash flow forecasting, regulatory alignment with national conservation standards, and stakeholder engagement models to secure capital and ensure sustainable operational scaling.',
-    servicesProvided: ['Funding Proposals', 'Financial Feasibility', 'Regulatory Alignment'],
-    entityId: 'cc',
-    permissionConfirmed: true,
-    impactMetrics: [
-      { label: 'Project Scope', value: 'Community Eco-Tourism' },
-      { label: 'Feasibility Model', value: '5-Year Cashflow' },
-      { label: 'Regulatory Alignment', value: '100% Compliant' }
-    ],
-    tags: ['Eco-Tourism', 'Feasibility', 'Proposals', 'Community Development']
+    id: 'build',
+    stepNumber: '03',
+    title: 'Build & Integrate',
+    description: 'We build, test, and integrate — with your team involved at every milestone. You see progress continuously, not just at the end.',
+    icon: 'Code'
   },
   {
-    id: 'sonhos-school',
-    clientName: 'Sonhos Private School',
-    slug: 'sonhos-private-school',
-    title: 'Entity Formalisation, BIPA Registration & Operational Scaling',
-    summary: 'Guided complete business formalisation, BIPA corporate registration, regulatory compliance, monthly bookkeeping, and administrative scaling.',
-    fullStory: 'Sonhos Private School partnered with Naweza Investments CC to transition from early operational stages into a fully formalised, legally registered private educational institution. We handled complete BIPA corporate registration, established robust accounting procedures, ensured tax compliance, and designed back-office management processes for sustainable institution growth.',
-    servicesProvided: ['BIPA Formalisation', 'Bookkeeping & Tax', 'Regulatory Compliance', 'Operational Advisory'],
-    entityId: 'cc',
-    permissionConfirmed: true,
-    impactMetrics: [
-      { label: 'Registration Status', value: 'BIPA Verified' },
-      { label: 'Accounting Setup', value: 'Full Bookkeeping' },
-      { label: 'Operational Readiness', value: 'Institutional Scale' }
-    ],
-    tags: ['Education', 'Formalisation', 'BIPA', 'Bookkeeping']
-  },
-  {
-    id: 'nueise-investments',
-    clientName: 'Nueise Investments',
-    slug: 'nueise-investments',
-    title: 'Comprehensive Bookkeeping, Taxation & Corporate Advisory',
-    summary: 'Provided ongoing monthly bookkeeping, statutory tax compliance, corporate letter formulation, commercial proposals, and practical executive advisory.',
-    fullStory: 'Naweza Investments CC serves as the long-term corporate advisory and financial management partner for Nueise Investments. Over multi-year engagements, we manage monthly bookkeeping, statutory tax returns (NamRA), corporate correspondence, commercial proposal writing, and executive business strategy.',
-    servicesProvided: ['Bookkeeping & Tax', 'Corporate Letters', 'Proposal Development', 'Executive Advisory'],
-    entityId: 'cc',
-    permissionConfirmed: true,
-    impactMetrics: [
-      { label: 'Relationship', value: 'Multi-Year Advisory' },
-      { label: 'Tax Compliance', value: 'NamRA Current' },
-      { label: 'Deliverables', value: 'Proposals & Letters' }
-    ],
-    tags: ['Corporate Advisory', 'Taxation', 'Bookkeeping', 'Business Strategy']
+    id: 'support',
+    stepNumber: '04',
+    title: 'Deploy & Support',
+    description: 'We launch, train your team, and stay on for support and improvements. Your software keeps working — and keeps improving — long after go-live.',
+    icon: 'ShieldCheck'
   }
 ];
 
 export const INSIGHTS: InsightPost[] = [
   {
     id: '1',
-    title: 'Navigating Business Compliance & BIPA Registration in Namibia',
-    slug: 'navigating-business-compliance-bipa-namibia',
-    excerpt: 'A practical guide for Namibian entrepreneurs on structuring entities, meeting statutory compliance, and maintaining audit readiness.',
-    content: 'Formalising a business in Namibia requires understanding the distinct advantages of Close Corporations (CC) and Proprietary Limited (Pty Ltd) companies under BIPA rules. Key steps include maintaining accurate minute books, annual returns, NamRA tax registration, and social security compliance...',
-    publishDate: 'September 2026',
-    readTime: '4 min read',
-    category: 'Advisory & Compliance',
-    author: 'Naweza Advisory Team'
+    title: 'AI for Namibian Businesses: Where to Start (and Where to Wait)',
+    slug: 'ai-for-namibian-businesses-where-to-start',
+    excerpt: 'A practical look at which AI use cases pay off fastest for local businesses — and which ones to leave alone for now.',
+    content: 'AI adoption fails when businesses start with the technology instead of the problem. The fastest wins are usually in customer communication, document handling, and repetitive back-office tasks — areas where a chatbot answering common questions, or a system that drafts quotes and invoices automatically, saves hours every week. Start with one painful, repetitive process, automate it, measure the time saved, and expand from there...',
+    publishDate: 'October 2026',
+    readTime: '5 min read',
+    category: 'AI & Automation',
+    author: 'Composure Technology Team'
   },
   {
     id: '2',
-    title: 'Your Products. Our Market Intelligence. Africa: SADC Market Entry',
-    slug: 'sadc-market-opportunity-scouting-international-investors',
-    excerpt: 'How international manufacturers, OEMs, and technology suppliers can enter the Namibian and SADC markets through strategic local partnerships.',
-    content: 'Namibia presents a stable gateway to the Southern African Development Community (SADC). International firms seeking to supply industrial equipment, renewable energy infrastructure, or technology solutions must navigate local partner requirements, tender intelligence, and local content frameworks...',
-    publishDate: 'August 2026',
+    title: 'The Real ROI of Automating Your Back Office',
+    slug: 'real-roi-of-back-office-automation',
+    excerpt: 'Manual quotes, invoices, stock updates, and follow-ups cost more than most owners realise. Here is how to calculate what automation is worth.',
+    content: 'Every manual process carries a hidden cost: staff hours, errors, delays, and the opportunities missed while your team is buried in admin. A simple calculation — hours spent per week multiplied by your fully-loaded hourly cost — usually reveals that a system paying for itself in months. Businesses that automate invoicing and stock updates typically reclaim 10 to 20 hours per week across their teams...',
+    publishDate: 'September 2026',
     readTime: '6 min read',
-    category: 'Africa Market Development',
-    author: 'Naweza Consulting Investments (Pty) Ltd'
+    category: 'Automation',
+    author: 'Composure Technology Team'
   },
   {
     id: '3',
-    title: 'Structuring Bankable Financial Feasibility Models & Proposals',
-    slug: 'structuring-bankable-financial-feasibility-models-proposals',
-    excerpt: 'Essential components of a successful business proposal or funding application for commercial banks and development financial institutions.',
-    content: 'Securing project debt or equity financing requires more than optimistic projections. A bankable feasibility study integrates sensitivity analysis, clear capex/opex breakdowns, market demand validation, and risk mitigation strategies tailored to local economic conditions...',
-    publishDate: 'July 2026',
+    title: 'Custom Software vs Off-the-Shelf: How to Choose',
+    slug: 'custom-software-vs-off-the-shelf',
+    excerpt: 'When ready-made software is the smart choice, when it holds your business back, and the questions to ask before you commit.',
+    content: 'Off-the-shelf software is cheap and instant — and it forces your business to change how it works to fit the software. Custom software costs more upfront but matches your workflow exactly. The deciding factor is how core the process is to your business: if a workflow is unique to how you win customers, build it; if it is a generic utility like email or accounting, buy it...',
+    publishDate: 'August 2026',
     readTime: '5 min read',
-    category: 'Finance & Strategy',
-    author: 'Naweza Advisory Team'
+    category: 'Software Strategy',
+    author: 'Composure Technology Team'
   }
 ];
 
 export const CONTACT_MAILBOXES = [
-  { label: 'General Enquiries (Primary)', email: 'info@nawezaconsultingpty.com', role: 'Main Brand & Information' },
-  { label: 'Sales & Proposals', email: 'sales@nawezaconsultingpty.com', role: 'Commercial Enquiries & Proposals' },
-  { label: 'Africa Market Development', email: 'africa@nawezaconsultingpty.com', role: 'International & SADC Projects' },
-  { label: 'Research & Feasibility', email: 'research@nawezaconsultingpty.com', role: 'Market Intelligence & Analysis' },
-  { label: 'Projects & Advisory', email: 'projects@nawezaconsultingpty.com', role: 'Compliance, Tax & Business Plans' },
-  { label: 'Consultations & Bookings', email: 'bookings@nawezaconsultingpty.com', role: 'Direct Calendar & Client Intake' },
+  { label: 'General Enquiries (Primary)', email: 'info@composuretech.com', role: 'Main Brand & Information' },
 ];
 
 export const PUBLIC_CONTACT_INFO = {
   primaryPhone: '+264 81 310 7977',
   whatsappNumber: '264813107977',
   whatsappUrl: 'https://wa.me/264813107977',
-  primaryEmail: 'info@nawezaconsultingpty.com',
+  primaryEmail: 'info@composuretech.com',
   salesEmail: '',
-  location: 'Windhoek, Namibia (SADC Gateway)',
+  location: 'Windhoek, Namibia (Serving Namibia & Beyond)',
   socialLinks: {
       facebook: 'https://www.facebook.com/profile.php?id=100054053484353',
       instagram: 'https://www.instagram.com/nawezaconsulting/',
@@ -347,4 +266,3 @@ export const PUBLIC_CONTACT_INFO = {
       whatsapp: 'https://wa.me/264813107977'
     }
 };
-

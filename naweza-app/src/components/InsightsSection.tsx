@@ -3,8 +3,8 @@
 
 import React, { useState } from 'react';
 import {
-    FileText, Calendar, Clock, User, ArrowRight,
-    X, Mail, CheckCircle2, Bookmark
+    FileText, Clock, ArrowRight,
+    X, Mail, CheckCircle2
 } from 'lucide-react';
 import { INSIGHTS, InsightPost } from '@/data/content';
 
@@ -29,13 +29,13 @@ export const InsightsSection: React.FC = () => {
                 {/* Section Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <span className="bg-[#0A2540] text-white text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block mb-3">
-                        Research & Insights
+                        Insights & Guides
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0A2540] tracking-tight">
-                        Market Intelligence, Compliance & Feasibility Analysis
+                        Practical Guides on AI, Automation & Software
                     </h2>
                     <p className="mt-4 text-base text-slate-600 leading-relaxed">
-                        Thought leadership and practical commercial guidance published by NAWEZA CONSULTING analysts.
+                        Straight-talking articles from our engineering team — real-world advice on AI adoption, automation ROI, and building software that lasts.
                     </p>
                 </div>
 
@@ -81,12 +81,12 @@ export const InsightsSection: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Insights Newsletter Box */}
+                {/* Newsletter Box */}
                 <div className="bg-[#0A2540] rounded-2xl p-8 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 border border-blue-900">
                     <div className="space-y-2 text-center md:text-left max-w-xl">
-                        <h3 className="text-2xl font-bold">Subscribe to Naweza Market Intelligence</h3>
+                        <h3 className="text-2xl font-bold">Subscribe to Composure Tech Insights</h3>
                         <p className="text-xs sm:text-sm text-slate-300">
-                            Receive quarterly briefs on Namibian regulatory changes, SADC tender intelligence, and economic feasibility research directly to your inbox.
+                            Practical guides on AI adoption, automation, and building software for African businesses — straight to your inbox.
                         </p>
                     </div>
 
@@ -94,7 +94,7 @@ export const InsightsSection: React.FC = () => {
                         <input
                             type="email"
                             required
-                            placeholder="Enter corporate email..."
+                            placeholder="Enter your email..."
                             value={emailInput}
                             onChange={(e) => setEmailInput(e.target.value)}
                             className="bg-white/10 text-white placeholder-slate-400 border border-blue-500/40 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-white w-full sm:w-72"
@@ -150,7 +150,7 @@ export const InsightsSection: React.FC = () => {
                             </p>
                             <p>{selectedPost.content}</p>
                             <p>
-                                Our strategic advisory team regularly updates regulatory compliance frameworks to ensure Namibian enterprises and international market entrants operate with complete clarity and peace of mind.
+                                Our engineering team publishes practical guidance on technology adoption for Namibian and African businesses — no hype, no vendor pitches, just what works.
                             </p>
                         </div>
 

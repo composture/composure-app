@@ -37,46 +37,10 @@ function validateRequired(body: Record<string, unknown>): string | null {
 
   if (!name) return 'Name is required.'
   if (!email) return 'Email is required.'
-  if (!company) return 'Company is required.'
+  if (body.serviceId && !company) return 'Company is required.'
   if (!body.serviceId && !body.subject) return 'Service or subject is required.'
 
   return null
-}
-
-function buildWhatsappMessage(
-  fullName: string,
-  email: string,
-  phone: string,
-  company: string,
-  subject: string,
-  notesOrMessage: string,
-  ref: string,
-  serviceTitle: string,
-  entityLabel: string,
-  isBooking: boolean,
-  preferredDate: string,
-  preferredTime: string,
-): string {
-  const lines: string[] = [
-    `📋 *NAWEZA CONSULTING — ${isBooking ? 'Consultation Booking' : (subject.toUpperCase() + ' Inquiry')}*`,
-    '',
-    `*Reference:* ${ref}`,
-    isBooking ? `*Service:* ${serviceTitle}` : '',
-    `*Entity:* ${entityLabel}`,
-    preferredDate ? `*Date:* ${preferredDate}` : '',
-    preferredTime ? `*Time:* ${preferredTime}` : '',
-    '',
-    `*Client:* ${fullName}`,
-    `*Email:* ${email}`,
-    phone ? `*Phone:* ${phone}` : '',
-    isBooking ? `*Company:* ${company}` : '',
-    subject ? `*Subject:* ${subject}` : '',
-    '',
-    `*Message:*`,
-    isBooking ? notesOrMessage : notesOrMessage,
-  ]
-
-  return lines.filter(Boolean).join('\n').slice(0, 2000)
 }
 
 export async function POST(request: NextRequest) {
@@ -96,8 +60,8 @@ export async function POST(request: NextRequest) {
       const allowedOrigins = [
         'http://localhost',
         'http://127.0.0.1',
-        'https://nawezaconsultingpty.com',
-        'https://www.nawezaconsultingpty.com',
+        'https://composuretech.com',
+        'https://www.composuretech.com',
       ]
       const isAllowed = allowedOrigins.some(o => origin.startsWith(o))
       if (!isAllowed) {
@@ -134,9 +98,8 @@ export async function POST(request: NextRequest) {
 
     const ref = body.bookingRef
       ? sanitizeCrLf(body.bookingRef as string)
-      : ('NWZ-' + Math.floor(100000 + Math.random() * 900000))
+      : ('CMP-' + Math.floor(100000 + Math.random() * 900000))
 
-    const isPty = service?.entityId === 'pty'
     const safeFullName = sanitizeCrLf((body.fullName ?? body.name)?.toString() || '')
     const safeEmail = sanitizeCrLf(body.email?.toString() || '')
     const safeCompany = sanitizeCrLf(body.company?.toString() || '')
@@ -148,83 +111,63 @@ export async function POST(request: NextRequest) {
     const safePreferredTime = sanitizeCrLf((body.preferredTime as string)?.trim() || '')
 
     const serviceTitle = service?.title ?? 'General Enquiry'
-    const entityLabel = isPty
-      ? 'Naweza Consulting Investments (Pty) Ltd'
-      : 'Naweza Investments CC'
+    const entityLabel = 'Composure (Pty) Ltd'
 
-    if (isPty) {
-      const emailBody = [
-        `Booking Reference: ${ref}`,
-        `Service: ${serviceTitle}`,
-        `Entity: Naweza Consulting Investments (Pty) Ltd`,
-        `Date: ${safePreferredDate || 'To be finalized'}`,
-        `Time: ${safePreferredTime}`,
-        '',
-        `Client Details:`,
-        `Name: ${safeFullName}`,
-        `Company: ${safeCompany}`,
-        `Email: ${safeEmail}`,
-        safePhone ? `Phone: ${safePhone}` : '',
-        safeNotes ? `Notes: ${safeNotes}` : '',
-      ].filter(Boolean).join('\n')
+    // Build email body
+    const dateTimeInfo = isBooking ? `\nDate: ${safePreferredDate || 'To be finalized'}\nTime: ${safePreferredTime}` : ''
+    const companyInfo = isBooking ? `\nCompany: ${safeCompany}` : ''
+    const subjectInfo = safeSubject ? `\nSubject: ${safeSubject}` : ''
+    const notesInfo = safeNotes || safeMessage ? `\n\nMessage:\n${safeNotes || safeMessage}` : ''
 
-      const emailSubject = `Naweza Consultation Booking — ${ref}`
+    const emailBody = [
+      isBooking
+        ? `Consultation Booking Reference: ${ref}`
+        : `Enquiry Reference: ${ref}`,
+      `Client: ${safeFullName}`,
+      `Email: ${safeEmail}`,
+      safePhone ? `Phone: ${safePhone}` : '',
+      `Entity: ${entityLabel}`,
+      dateTimeInfo,
+      companyInfo,
+      subjectInfo,
+      isBooking ? `\nService: ${serviceTitle}` : '',
+      notesInfo,
+    ].filter(Boolean).join('')
 
-      const { Resend } = await import('resend')
-      const resend = new Resend(process.env.RESEND_API_KEY)
+    const emailSubject = isBooking
+      ? `Composure Consultation Booking — ${serviceTitle} — ${ref}`
+      : `Composure Enquiry — ${safeSubject || 'General Enquiry'}`
 
-      const result = await resend.emails.send({
-        from: 'Naweza Consulting <info@nawezaconsultingpty.com>',
-        to: 'info@nawezaconsultingpty.com',
-        subject: emailSubject,
-        text: emailBody,
-      })
+    const { Resend } = await import('resend')
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
-      if (!result.data?.id) {
-        const errMsg = result.error?.message || 'Resend failed to send email'
-        console.error('Resend send failed:', result)
-        return NextResponse.json(
-          { success: false, message: errMsg },
-          { status: 500 }
-        )
-      }
+    const result = await resend.emails.send({
+      from: 'Composure <info@composuretech.com>',
+      to: 'info@composuretech.com',
+      subject: emailSubject,
+      text: emailBody,
+    })
 
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`Email sent via Resend — ID: ${result.data.id}, Subject: ${emailSubject}`)
-      }
-
-      return NextResponse.json({
-        success: true,
-        type: 'email',
-        ref,
-        message: 'Booking request sent to our advisory team via email.',
-      })
+    if (!result.data?.id) {
+      const errMsg = result.error?.message || 'Resend failed to send email'
+      console.error('Resend send failed:', result)
+      return NextResponse.json(
+        { success: false, message: errMsg },
+        { status: 500 }
+      )
     }
 
-    // CC route — return WhatsApp URL
-    const messageText = buildWhatsappMessage(
-      safeFullName,
-      safeEmail,
-      safePhone,
-      safeCompany,
-      safeSubject,
-      isBooking ? safeNotes : safeMessage,
-      ref,
-      serviceTitle,
-      entityLabel,
-      isBooking,
-      safePreferredDate || 'To be finalized',
-      safePreferredTime,
-    )
-    const encoded = encodeURIComponent(messageText)
-    const whatsappUrl = `https://wa.me/${process.env.WHATSAPP_NUMBER || '264813107977'}?text=${encoded}`
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Email sent via Resend — ID: ${result.data.id}, Subject: ${emailSubject}`)
+    }
 
     return NextResponse.json({
       success: true,
-      type: 'whatsapp',
+      type: 'email',
       ref,
-      whatsappUrl,
-      message: 'Opening WhatsApp with your message pre-filled. Tap send when ready.',
+      message: isBooking
+        ? 'Booking request sent to our team via email.'
+        : 'Your enquiry has been sent to our team via email.',
     })
   } catch (error) {
     console.error('Contact API error:', error)

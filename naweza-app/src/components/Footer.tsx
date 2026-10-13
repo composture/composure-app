@@ -3,8 +3,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Building2, Globe, Mail, Shield, Phone } from 'lucide-react';
-import { LEGAL_ENTITIES, PUBLIC_CONTACT_INFO } from '@/data/content';
+import { Mail, Phone } from 'lucide-react';
+import { PUBLIC_CONTACT_INFO } from '@/data/content';
 
 export const Footer: React.FC = () => {
     return (
@@ -18,35 +18,35 @@ export const Footer: React.FC = () => {
                         <div className="flex items-center gap-3">
                             <img
                                 src="/logo.jpeg"
-                                alt="NAWEZA CONSULTING INVESTMENTS (PTY) LTD"
+                                alt="Composure (Pty) Ltd"
                                 className="h-16 w-16 object-contain rounded-full bg-white p-1.5 border border-blue-500/40"
                             />
                             <div>
                                 <h3 className="text-lg font-extrabold tracking-tight text-white leading-none">
-                                    NAWEZA CONSULTING
+                                    COMPOSURE
                                 </h3>
                                 <span className="text-[10px] font-bold tracking-wider text-emerald-400 uppercase block mt-1">
-                                    INVESTMENTS (PTY) LTD
+                                    (PTY) LTD
                                 </span>
                             </div>
                         </div>
 
                         <p className="text-xs text-slate-300 leading-relaxed max-w-md">
-                            Naweza Consulting Investments (Pty) Ltd is the international-facing arm of the Naweza brand, building on the experience and local track record established through Naweza Investments CC in Namibia.
+                            We help businesses put AI to work. AI integration, websites, automation, custom software, and mobile apps — built for Namibian and African business conditions.
                         </p>
 
                         <div className="space-y-1.5 text-xs text-blue-200">
                             <div className="flex items-center gap-2">
                                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                                <a href="tel:+264****7977" className="hover:underline font-bold text-white">+264 81 310 7977</a>
+                                <a href="tel:+264813107977" className="hover:underline font-bold text-white">+264 81 310 7977</a>
                                 <span className="text-gray-500">•</span>
-                                <a href={PUBLIC_CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
-                                    WhatsApp Us
+                                <a href="mailto:info@composuretech.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
+                                    Email Us
                                 </a>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Mail className="w-3.5 h-3.5 text-blue-400" />
-                                <a href="mailto:info@nawezaconsultingpty.com" className="hover:underline">info@nawezaconsultingpty.com</a>
+                                <a href="mailto:info@composuretech.com" className="hover:underline">info@composuretech.com</a>
                             </div>
                         </div>
 
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
                                     className="w-8 h-8 rounded-lg bg-[#0F3460] hover:bg-pink-600 text-white flex items-center justify-center border border-blue-500/30 transition-colors"
                                 >
                                     <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259.014-3.667.072-4.947.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162 6.162-6.163 0-3.403-2.759-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                                     </svg>
                                 </a>
                                 {/* LinkedIn */}
@@ -106,32 +106,24 @@ export const Footer: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Legal Operating Entities */}
+                    {/* About */}
                     <div className="lg:col-span-4 space-y-3">
-                        <h4 className="text-xs font-bold text-blue-300 uppercase tracking-widest flex items-center gap-1.5">
-                            <Shield className="w-3.5 h-3.5 text-blue-400" />
-                            Legal Brand Architecture
+                        <h4 className="text-xs font-bold text-blue-300 uppercase tracking-widest">
+                            About Composure
                         </h4>
 
-                        <div className="bg-[#0F3460]/90 p-3.5 rounded-xl border border-emerald-700 text-xs space-y-1">
-                            <div className="font-bold text-white flex justify-between items-center">
-                                <span>{LEGAL_ENTITIES.pty.name}</span>
-                                <span className="bg-emerald-500 text-slate-950 font-bold text-[10px] px-2 py-0.5 rounded">Primary Identity</span>
+                        <div className="bg-[#0F3460]/90 p-3.5 rounded-xl border border-blue-700 text-xs space-y-1">
+                            <div className="font-bold text-white">
+                                Composure (Pty) Ltd
                             </div>
                             <p className="text-[11px] text-slate-200">
-                                Established 2026. Primary international-facing brand identity for market expansion, partner scouting & cross-border intelligence.
+                                AI, Software & Automation. We build AI-powered software, websites, automations, and business systems for companies in Namibia and beyond.
                             </p>
                         </div>
 
-                        <div className="bg-[#0F3460]/50 p-3.5 rounded-xl border border-blue-800 text-xs space-y-1">
-                            <div className="font-bold text-white flex justify-between items-center">
-                                <span>{LEGAL_ENTITIES.cc.name}</span>
-                                <span className="text-blue-300 font-mono text-[10px]">Operating Since 2018</span>
-                            </div>
-                            <p className="text-[11px] text-slate-300">
-                                Local operating foundation: Namibian corporate advisory, compliance, taxation & bookkeeping.
-                            </p>
-                        </div>
+                        <p className="text-[11px] text-slate-400">
+                            Registered in Windhoek, Namibia. Serving Namibia and beyond.
+                        </p>
                     </div>
 
                     {/* Quick Links */}
@@ -142,11 +134,11 @@ export const Footer: React.FC = () => {
 
                         <ul className="space-y-2 text-xs text-slate-300">
                             <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                            <li><Link href="#about" className="hover:text-white transition-colors">About & Track Record</Link></li>
-                            <li><Link href="#services" className="hover:text-white transition-colors">Core Advisory Services (7)</Link></li>
-                            <li><Link href="#africa-market" className="hover:text-emerald-300 transition-colors text-emerald-400 font-semibold">Africa Market Development (Pty Ltd)</Link></li>
-                            <li><Link href="#case-studies" className="hover:text-white transition-colors">Case Studies</Link></li>
-                            <li><Link href="#insights" className="hover:text-white transition-colors">Research & Insights</Link></li>
+                            <li><Link href="#about" className="hover:text-white transition-colors">About</Link></li>
+                            <li><Link href="#services" className="hover:text-white transition-colors">Services</Link></li>
+                            <li><Link href="#industries" className="hover:text-white transition-colors">Industries</Link></li>
+                            <li><Link href="#process" className="hover:text-white transition-colors">Process</Link></li>
+                            <li><Link href="#insights" className="hover:text-white transition-colors">Insights</Link></li>
                             <li><Link href="#contact" className="hover:text-white transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
@@ -155,11 +147,11 @@ export const Footer: React.FC = () => {
 
                 {/* Bottom Copyright */}
                 <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-                    <p>© 2026 NAWEZA CONSULTING INVESTMENTS (PTY) LTD. All rights reserved.</p>
+                    <p>© 2026 COMPOSURE (PTY) LTD. All rights reserved.</p>
                     <div className="flex gap-6 text-slate-400">
                         <span>Windhoek, Namibia</span>
                         <span>•</span>
-                        <Link href="#about" className="hover:underline">Legal Disclosures</Link>
+                        <Link href="#about" className="hover:underline">About Us</Link>
                     </div>
                 </div>
 

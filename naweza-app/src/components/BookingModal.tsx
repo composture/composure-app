@@ -3,10 +3,10 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-    X, Calendar, Clock, CheckCircle2, Building2,
-    ShieldCheck, Globe, User, Mail, Phone, FileText, ArrowRight, Check
+    X, Calendar, CheckCircle2,
+    Mail, Phone, ArrowRight, Check
 } from 'lucide-react';
-import { CORE_SERVICES, LEGAL_ENTITIES } from '@/data/content';
+import { CORE_SERVICES } from '@/data/content';
 
 interface BookingModalProps {
     isOpen: boolean;
@@ -56,15 +56,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     if (!isOpen) return null;
 
     const selectedService = CORE_SERVICES.find(s => s.id === selectedServiceId) || CORE_SERVICES[0];
-    const assignedEntity = LEGAL_ENTITIES[selectedService.entityId];
-    const isPtyRoute = selectedService.entityId === 'pty';
 
     const handleSubmitBooking = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitStatus('submitting');
         setErrorMsg('');
 
-        const ref = 'NWZ-' + Math.floor(100000 + Math.random() * 900000);
+        const ref = 'CMP-' + Math.floor(100000 + Math.random() * 900000);
         setBookingRef(ref);
 
         try {
@@ -103,14 +101,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                 throw new Error(data.message || 'Submission failed');
             }
 
-            if (data.type === 'whatsapp') {
-                const tab = window.open(data.whatsappUrl, '_blank');
-                if (!tab || tab.closed || typeof tab.closed === 'undefined') {
-                    setSubmitStatus('idle');
-                    setErrorMsg('WhatsApp popup was blocked. Please allow popups for this site, or message us directly: +264 81 310 7977');
-                    return;
-                }
-            }
             setStep(3);
         } catch (err) {
             setSubmitStatus('idle');
@@ -126,8 +116,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
     };
 
     return (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 text-[#12151A]">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-start justify-center p-0 sm:p-4 overflow-y-auto">
+            <div className="bg-white rounded-2xl w-full max-w-lg sm:max-w-2xl p-4 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in duration-200 text-[#12151A] max-h-[90vh] overflow-y-auto">
 
                 <button
                     onClick={onClose}
@@ -141,53 +131,54 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                         <Calendar className="w-5 h-5 text-blue-300" />
                     </div>
                     <div>
-                        <h3 className="text-xl font-bold text-[#0A2540]">Book a Consultation</h3>
-                        <p className="text-xs text-slate-500">NAWEZA CONSULTING • Official Engagement Portal</p>
+                        <h3 className="text-xl font-bold text-[#0A2540]">Book a Free Consultation</h3>
+                        <p className="text-xs text-slate-500">COMPOSURE • Technology & Software Services</p>
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between mb-8 px-4">
-                    <div className={`flex items-center gap-2 text-xs font-bold ${step >= 1 ? 'text-[#0A2540]' : 'text-slate-400'}`}>
+                <div className="flex items-center justify-between mb-8 px-2 sm:px-4 overflow-x-auto">
+                    <div className={`flex items-center gap-2 text-xs font-bold shrink-0 ${step >= 1 ? 'text-[#0A2540]' : 'text-slate-400'}`}>
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 1 ? 'bg-[#0A2540] text-white' : 'bg-slate-200'}`}>1</span>
-                        <span>Select Service</span>
+                        <span className="hidden sm:inline">Select Service</span>
                     </div>
-                    <div className="h-0.5 w-12 bg-slate-200"></div>
-                    <div className={`flex items-center gap-2 text-xs font-bold ${step >= 2 ? 'text-[#0A2540]' : 'text-slate-400'}`}>
+                    <div className="h-0.5 w-8 sm:w-12 bg-slate-200 shrink-0"></div>
+                    <div className={`flex items-center gap-2 text-xs font-bold shrink-0 ${step >= 2 ? 'text-[#0A2540]' : 'text-slate-400'}`}>
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step >= 2 ? 'bg-[#0A2540] text-white' : 'bg-slate-200'}`}>2</span>
-                        <span>Client Details</span>
+                        <span className="hidden sm:inline">Your Details</span>
                     </div>
-                    <div className="h-0.5 w-12 bg-slate-200"></div>
-                    <div className={`flex items-center gap-2 text-xs font-bold ${step === 3 ? 'text-emerald-600' : 'text-slate-400'}`}>
+                    <div className="h-0.5 w-8 sm:w-12 bg-slate-200 shrink-0"></div>
+                    <div className={`flex items-center gap-2 text-xs font-bold shrink-0 ${step === 3 ? 'text-emerald-600' : 'text-slate-400'}`}>
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 3 ? 'bg-emerald-600 text-white' : 'bg-slate-200'}`}>3</span>
-                        <span>Confirmation</span>
+                        <span className="hidden sm:inline">Confirmation</span>
                     </div>
                 </div>
 
-                                <div className="p-3 rounded-xl mb-6 border text-xs flex items-center gap-2" 
-                                    style={{
-                                        backgroundColor: isPtyRoute ? '#EBF5FF' : '#F0F8FF',
-                                        borderColor: isPtyRoute ? '#3B82F6' : '#CBD5E1',
-                                        color: isPtyRoute ? '#1D4ED8' : '#475569'
-                                    }}>
-                                    <ShieldCheck className="w-4 h-4" />
-                                    <span>
-                                        Routing: <strong>{assignedEntity.shortName}</strong> → {isPtyRoute ? 'Email: info@nawezaconsultingpty.com' : 'WhatsApp'}
-                                    </span>
-                                </div>
+                {/* Routing Info */}
+                <div className="p-3 rounded-xl mb-4 border text-xs flex items-center gap-2 overflow-hidden"
+                    style={{
+                        backgroundColor: '#EBF5FF',
+                        borderColor: '#3B82F6',
+                        color: '#1D4ED8'
+                    }}>
+                    <Mail className="w-4 h-4 shrink-0" />
+                    <span className="truncate">
+                        Routing: <strong>Composure (Pty) Ltd</strong> → info@composuretech.com
+                    </span>
+                </div>
 
-                                {step === 1 && (
+                {step === 1 && (
                     <div className="space-y-6">
                         <div>
                             <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-2">
-                                1. Select Advisory / Market Service
+                                1. Select Service
                             </label>
-                            <div className="grid sm:grid-cols-2 gap-3 max-h-56 overflow-y-auto p-1">
+                            <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto p-1">
                                 {CORE_SERVICES.map((s) => (
                                     <button
                                         key={s.id}
                                         type="button"
                                         onClick={() => setSelectedServiceId(s.id)}
-                                        className={`p-3 rounded-xl border text-left transition-all ${selectedServiceId === s.id
+                                        className={`p-2.5 rounded-xl border text-left transition-all text-xs ${selectedServiceId === s.id
                                                 ? 'border-[#0A2540] bg-blue-50/80 shadow-sm ring-2 ring-[#0A2540]/20'
                                                 : 'border-slate-200 hover:border-slate-300 bg-white'
                                             }`}
@@ -197,22 +188,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                                             {selectedServiceId === s.id && <Check className="w-4 h-4 text-blue-700" />}
                                         </div>
                                         <span className="text-[10px] text-slate-500 block">
-                                            Entity: {LEGAL_ENTITIES[s.entityId].shortName}
+                                            {s.shortDescription.slice(0, 60)}...
                                         </span>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 flex items-start gap-2">
-                            <ShieldCheck className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-                            <div>
-                                <strong>Contracting Entity:</strong> {assignedEntity.name} ({assignedEntity.badgeText})
-                                <p className="text-[11px] text-slate-500 mt-0.5">{assignedEntity.positioningText}</p>
-                            </div>
-                        </div>
-
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
                                     Preferred Date
@@ -246,9 +229,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             <button
                                 type="button"
                                 onClick={() => setStep(2)}
-                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-6 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2"
+                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-6 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 w-full sm:w-auto"
                             >
-                                Continue to Client Details
+                                Continue to Your Details
                                 <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
@@ -257,7 +240,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                 {step === 2 && (
                     <form onSubmit={handleSubmitBooking} className="space-y-4">
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
                                     Full Name *
@@ -275,7 +258,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                             <div>
                                 <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
-                                    Corporate Email *
+                                    Email *
                                 </label>
                                 <input
                                     type="email"
@@ -289,10 +272,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             </div>
                         </div>
 
-                        <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
-                                    Company / Entity Name *
+                                    Company / Business Name *
                                 </label>
                                 <input
                                     type="text"
@@ -322,15 +305,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                         <div>
                             <label className="block text-xs font-bold text-[#0A2540] uppercase tracking-wider mb-1">
-                                Project Scope / Engagement Overview
+                                Project Overview
                             </label>
                             <textarea
                                 rows={3}
                                 maxLength={500}
-                                placeholder="Briefly describe your objectives or statutory/market questions..."
+                                placeholder="Briefly describe what you need built or automated..."
                                 value={notes}
                                 onChange={(e) => setNotes(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs font-medium focus:outline-none focus:border-[#0A2540]"
+                                className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs font-medium focus:outline-none focus:border-[#0A2540] resize-none"
                             ></textarea>
                         </div>
 
@@ -345,11 +328,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             )}
                         </div>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+                        <div className="flex items-center justify-between pt-4 border-t border-slate-200 flex-col sm:flex-row gap-3">
                             <button
                                 type="button"
                                 onClick={() => setStep(1)}
-                                className="text-xs font-bold text-slate-500 hover:text-slate-800"
+                                className="text-xs font-bold text-slate-500 hover:text-slate-800 text-center sm:text-left"
                             >
                                 ← Back to Service Selection
                             </button>
@@ -357,7 +340,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
                             <button
                                 type="submit"
                                 disabled={submitStatus === 'submitting'}
-                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-7 py-2.5 rounded-lg text-sm font-bold flex items-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-7 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-md disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                             >
                                 {submitStatus === 'submitting' ? (
                                     <span className="flex items-center gap-2">
@@ -386,44 +369,38 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose, ini
 
                         <div>
                             <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                                Booking Request Confirmed
+                                Consultation Request Confirmed
                             </span>
                             <h4 className="text-2xl font-extrabold text-[#0A2540] mt-2">
-                                Consultation Reference: {bookingRef}
+                                Reference: {bookingRef}
                             </h4>
                             <p className="text-xs text-slate-500 mt-1">
-                                {isPtyRoute
-                                    ? 'A copy of your booking request has been sent via email to our advisory team.'
-                                    : 'Your message has been pre-filled in WhatsApp. Tap send when ready.'}
+                                Your booking request has been sent via email to our team. We will confirm within one business day.
                             </p>
                         </div>
 
-                        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 text-left space-y-2 text-xs text-slate-700">
-                            <div className="flex justify-between border-b pb-2">
+                        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 text-left space-y-3 text-xs text-slate-700">
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
                                 <span className="text-slate-500">Service Requested:</span>
-                                <span className="font-bold text-[#0A2540]">{selectedService.title}</span>
+                                <span className="font-bold text-[#0A2540] break-all">{selectedService.title}</span>
                             </div>
-                            <div className="flex justify-between border-b pb-2">
-                                <span className="text-slate-500">Legal Entity Assigned:</span>
-                                <span className="font-bold text-[#0A2540]">{assignedEntity.shortName}</span>
-                            </div>
-                            <div className="flex justify-between border-b pb-2">
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
                                 <span className="text-slate-500">Scheduled Date & Time:</span>
-                                <span className="font-bold text-[#0A2540]">{preferredDate || 'To be finalized'} ({preferredTime})</span>
+                                <span className="font-bold text-[#0A2540] break-all">{preferredDate || 'To be finalized'} ({preferredTime})</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">Client Representative:</span>
-                                <span className="font-bold text-[#0A2540]">{fullName} ({company})</span>
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
+                                <span className="text-slate-500">Your Details:</span>
+                                <span className="font-bold text-[#0A2540] break-all">{fullName} ({company})</span>
                             </div>
                         </div>
 
                         <p className="text-xs text-slate-500 italic">
-                            Routing: <strong>{assignedEntity.shortName}</strong> → {isPtyRoute ? 'Email' : 'WhatsApp'} — {isPtyRoute ? 'info@nawezaconsultingpty.com' : '+264 81 310 7977'}
+                            Routing: <strong>Composure (Pty) Ltd</strong> → info@composuretech.com
                         </p>
 
                         <button
                             onClick={onClose}
-                            className="bg-[#0A2540] text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-[#0F3460] shadow-md"
+                            className="bg-[#0A2540] text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-[#0F3460] shadow-md w-full sm:w-auto"
                         >
                             Done & Close Window
                         </button>

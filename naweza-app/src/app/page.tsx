@@ -5,8 +5,8 @@ import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { AboutSection } from '@/components/AboutSection';
 import { ServicesSection } from '@/components/ServicesSection';
-import { AfricaMarketSection } from '@/components/AfricaMarketSection';
-import { CaseStudiesSection } from '@/components/CaseStudiesSection';
+import { IndustriesSection } from '@/components/IndustriesSection';
+import { ProcessSection } from '@/components/ProcessSection';
 import { InsightsSection } from '@/components/InsightsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
@@ -34,22 +34,22 @@ export default function Home() {
       {/* Main Hero Section */}
       <Hero onOpenBooking={handleOpenBooking} />
 
-      {/* About & Legal Entities Section */}
+      {/* About & How We Work */}
       <AboutSection />
 
       {/* 7 Core Services Grid */}
       <ServicesSection onOpenBooking={handleOpenBooking} />
 
-      {/* Africa Market Development (Pty Ltd - Established 2026) */}
-      <AfricaMarketSection onOpenBooking={handleOpenBooking} />
+      {/* Industries We Serve */}
+      <IndustriesSection />
 
-      {/* Verified Client Case Studies */}
-      <CaseStudiesSection />
+      {/* Our Process */}
+      <ProcessSection />
 
-      {/* Research & Insights Feed */}
+      {/* Tech Insights Feed */}
       <InsightsSection />
 
-      {/* Contact & Mailbox Routing Section */}
+      {/* Contact & Enquiry Section */}
       <ContactSection />
 
       {/* Corporate Footer */}

@@ -3,10 +3,9 @@
 
 import React from 'react';
 import {
-    Building2, History, Award, CheckCircle, Target,
-    Layers, Shield, Users, ArrowRight, TrendingUp
+    CheckCircle, Target,
+    Bot, Code, Workflow
 } from 'lucide-react';
-import { LEGAL_ENTITIES } from '@/data/content';
 
 export const AboutSection: React.FC = () => {
     return (
@@ -16,106 +15,113 @@ export const AboutSection: React.FC = () => {
                 {/* Section Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16">
                     <span className="bg-[#0A2540] text-white text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block mb-3">
-                        About NAWEZA CONSULTING
+                        About Composure
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0A2540] tracking-tight">
-                        Modern International Consulting Backed by Established Namibian Experience
+                        A Technology Partner That Builds What Your Business Actually Needs
                     </h2>
                     <p className="mt-4 text-base text-slate-600 leading-relaxed font-medium">
-                        Naweza Consulting Investments (Pty) Ltd is the international-facing arm of the Naweza brand, building on the experience and local track record established through Naweza Investments CC in Namibia.
+                        Composure (Pty) Ltd is a software and AI company that helps businesses automate, digitise, and grow. No templates, no jargon — systems built around the way you work.
                     </p>
                 </div>
 
-                {/* 2 Column Layout — Corporate Background */}
+                {/* 2 Column Layout */}
                 <div className="grid lg:grid-cols-12 gap-12 items-center">
 
-                    {/* Left Column — Strategic Pillars */}
+                    {/* Left Column — What We Do */}
                     <div className="lg:col-span-6 space-y-6">
                         <h3 className="text-2xl font-bold text-[#0A2540] tracking-tight">
-                            A 100% Namibian Corporate Advisory & Ecosystem-Enabling Firm
+                            Practical Technology, Built for African Business Conditions
                         </h3>
 
                         <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
-                            Operating since 2018 under <strong>Naweza Investments CC</strong>, our platform has provided practical corporate advisory, regulatory compliance, statutory tax support, bookkeeping, and feasibility studies to emerging and established enterprises in Namibia.
+                            We build systems for Namibian businesses — point-of-sale platforms, stock and inventory control, booking systems, AI assistants, and automated back-office workflows.
                         </p>
 
                         <p className="text-slate-700 text-sm sm:text-base leading-relaxed">
-                            In 2026, we expanded our platform under <strong>Naweza Consulting Investments (Pty) Ltd</strong> as our primary international-facing project development identity — connecting global manufacturers, technology suppliers, and investors to high-yield commercial opportunities across Namibia and the SADC region.
+                            Our team delivers AI integration, custom software, web and mobile development, and end-to-end business automation — helping companies in Namibia and beyond replace manual work with intelligent, reliable systems.
                         </p>
 
                         {/* Core Pillars Grid */}
                         <div className="grid sm:grid-cols-3 gap-4 pt-4">
                             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                                 <div className="w-8 h-8 rounded-lg bg-[#0A2540] text-white flex items-center justify-center font-bold mb-2">
-                                    <Layers className="w-4 h-4" />
+                                    <Bot className="w-4 h-4" />
                                 </div>
-                                <h4 className="font-bold text-[#0A2540] text-sm">SYSTEMS</h4>
-                                <p className="text-xs text-slate-500 mt-1">Structured governance, back-office, & BIPA compliance.</p>
+                                <h4 className="font-bold text-[#0A2540] text-sm">AI</h4>
+                                <p className="text-xs text-slate-500 mt-1">Chatbots, agents & intelligent document processing.</p>
                             </div>
 
                             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                                 <div className="w-8 h-8 rounded-lg bg-[#0F3460] text-white flex items-center justify-center font-bold mb-2">
-                                    <Target className="w-4 h-4" />
+                                    <Code className="w-4 h-4" />
                                 </div>
-                                <h4 className="font-bold text-[#0A2540] text-sm">STRATEGY</h4>
-                                <p className="text-xs text-slate-500 mt-1">Bankable business plans, feasibility & financial models.</p>
+                                <h4 className="font-bold text-[#0A2540] text-sm">SOFTWARE</h4>
+                                <p className="text-xs text-slate-500 mt-1">Web, mobile & custom systems built to fit.</p>
                             </div>
 
                             <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
                                 <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold mb-2">
-                                    <TrendingUp className="w-4 h-4" />
+                                    <Workflow className="w-4 h-4" />
                                 </div>
-                                <h4 className="font-bold text-[#0A2540] text-sm">GROWTH</h4>
-                                <p className="text-xs text-slate-500 mt-1">Cross-border SADC market entry & opportunity scouting.</p>
+                                <h4 className="font-bold text-[#0A2540] text-sm">AUTOMATION</h4>
+                                <p className="text-xs text-slate-500 mt-1">Connected systems & zero manual busywork.</p>
                             </div>
                         </div>
 
                     </div>
 
-                    {/* Right Column — Entity Breakdown Panel */}
+                    {/* Right Column — Why Clients Work With Us */}
                     <div className="lg:col-span-6">
                         <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xl space-y-6">
 
                             <div className="border-b border-slate-200 pb-4">
                                 <h4 className="text-lg font-bold text-[#0A2540] flex items-center gap-2">
-                                    <Building2 className="w-5 h-5 text-blue-700" />
-                                    Legal Entity Governance Framework
+                                    How We Work
                                 </h4>
                                 <p className="text-xs text-slate-500 mt-1">
-                                    Transparent presentation of our legal structure to clients and partners.
+                                    A straightforward, no-nonsense approach to building software that lasts.
                                 </p>
                             </div>
 
-                            {/* Entity 1 */}
+                            {/* Point 1 */}
                             <div className="p-4 rounded-xl bg-slate-50 border-l-4 border-[#0A2540]">
-                                <div className="flex items-center justify-between">
-                                    <h5 className="font-bold text-[#0A2540] text-sm">{LEGAL_ENTITIES.cc.name}</h5>
-                                    <span className="text-[11px] font-semibold bg-blue-100 text-[#0A2540] px-2.5 py-0.5 rounded-full">
-                                        {LEGAL_ENTITIES.cc.badgeText}
-                                    </span>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <CheckCircle className="w-4 h-4 text-blue-700" />
+                                    <h5 className="font-bold text-[#0A2540] text-sm">Fixed Scope, Fixed Price</h5>
                                 </div>
                                 <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                                    The foundational operating entity for all domestic Namibian business advisory, BIPA compliance, NamRA tax administration, bookkeeping, and project feasibility documentation.
+                                    Every engagement starts with a clear plan — deliverables, timeline, and cost agreed upfront. No hourly billing surprises.
                                 </p>
                             </div>
 
-                            {/* Entity 2 */}
-                            <div className="p-4 rounded-xl bg-slate-900 text-white border-l-4 border-emerald-500">
-                                <div className="flex items-center justify-between">
-                                    <h5 className="font-bold text-white text-sm">{LEGAL_ENTITIES.pty.name}</h5>
-                                    <span className="text-[11px] font-semibold bg-emerald-500 text-slate-950 px-2.5 py-0.5 rounded-full">
-                                        {LEGAL_ENTITIES.pty.badgeText}
-                                    </span>
+                            {/* Point 2 */}
+                            <div className="p-4 rounded-xl bg-slate-50 border-l-4 border-[#0F3460]">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Target className="w-4 h-4 text-[#0F3460]" />
+                                    <h5 className="font-bold text-[#0A2540] text-sm">Built for Real Conditions</h5>
                                 </div>
-                                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                                    The international-facing project development vehicle established in 2026 for Africa market entry, partner scouting, tender intelligence, and cross-border commercial support.
+                                <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    Our systems work offline, on cheap devices, and on slow connections — because that is the reality of business here.
                                 </p>
                             </div>
 
+                            {/* Point 3 */}
+                            <div className="p-4 rounded-xl bg-slate-50 border-l-4 border-emerald-500">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <CheckCircle className="w-4 h-4 text-emerald-600" />
+                                    <h5 className="font-bold text-[#0A2540] text-sm">You Own Everything</h5>
+                                </div>
+                                <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                                    Full source code, documentation, and training handover. You are never locked into us — but clients stay because we deliver.
+                                </p>
+                            </div>
+
+                            {/* Entity transparency note */}
                             <div className="bg-blue-50 p-3.5 rounded-lg border border-blue-200 text-xs text-[#0A2540] flex items-start gap-2">
                                 <CheckCircle className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                                 <span>
-                                    <strong>Strict Compliance Standard:</strong> Formal engagements, quotations, and agreements explicitly identify the contracting legal entity suited for your project scope.
+                                    <strong>Registered & Transparent:</strong> All engagements are contracted through a registered Namibian entity (Composure (Pty) Ltd), with formal agreements and clear invoicing.
                                 </span>
                             </div>
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { BookingModal } from '@/components/BookingModal';
+import { HeroAnimation } from '@/components/HeroAnimation';
 
 export default function Home() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -13,37 +14,40 @@ export default function Home() {
     <main className="min-h-screen bg-[#F4F1EA] text-[#12151A]">
       <Navbar onOpenBooking={() => setIsBookingOpen(true)} />
 
-      {/* Simple hero: headline + 3 plain lines + button */}
-      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-center">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0A2540] tracking-tight leading-tight">
-          We make technology work for your business
-        </h1>
-        <p className="mt-6 text-lg text-slate-600 leading-relaxed">
-          Composure is a Windhoek company that builds websites, apps, and automation for businesses across Namibia.
-        </p>
-        <div className="mt-4 space-y-1 text-base text-slate-600">
-          <p>Simple websites that bring you customers.</p>
-          <p>Systems and apps that run your daily work.</p>
-          <p>Automation and AI that save your team time.</p>
-        </div>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button
-            onClick={() => setIsBookingOpen(true)}
-            className="bg-[#0A2540] hover:bg-[#0F3460] text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-md transition-colors w-full sm:w-auto"
-          >
-            Talk to Us — It&apos;s Free
-          </button>
-          <Link
-            href="/services"
-            className="border-2 border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white px-8 py-3.5 rounded-xl font-bold text-base transition-colors w-full sm:w-auto text-center"
-          >
-            See What We Do
-          </Link>
+      {/* Animated hero: CSS/SVG motion backdrop + headline */}
+      <section className="relative overflow-hidden">
+        <HeroAnimation />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            We make technology work for your business
+          </h1>
+          <p className="mt-6 text-lg text-slate-200 leading-relaxed">
+            Composure is a Windhoek company that builds websites, apps, and automation for businesses across Namibia.
+          </p>
+          <div className="mt-4 space-y-1 text-base text-slate-300">
+            <p>Simple websites that bring you customers.</p>
+            <p>Systems and apps that run your daily work.</p>
+            <p>Automation and AI that save your team time.</p>
+          </div>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button
+              onClick={() => setIsBookingOpen(true)}
+              className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-8 py-3.5 rounded-xl font-bold text-base shadow-lg transition-colors w-full sm:w-auto"
+            >
+              Talk to Us — It&apos;s Free
+            </button>
+            <Link
+              href="/services"
+              className="border-2 border-white/80 text-white hover:bg-white hover:text-[#0A2540] px-8 py-3.5 rounded-xl font-bold text-base transition-colors w-full sm:w-auto text-center"
+            >
+              See What We Do
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* 3 simple blocks */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
           <h2 className="font-bold text-[#0A2540] text-lg">We keep it simple</h2>
           <p className="mt-2 text-sm text-slate-600 leading-relaxed">

@@ -8,7 +8,7 @@
   --off-white: #F4F1EA;
   --light-grey: #F8F9FA;
   --card-border: #E2E8F0;
-  
+
   --background: var(--off-white);
   --foreground: var(--near-black);
 }
@@ -20,7 +20,7 @@
   --color-neutral-grey: #8A94A3;
   --color-off-white: #F4F1EA;
   --color-light-grey: #F8F9FA;
-  
+
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -36,29 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Glassmorphism & Shadow Utilities */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-.glass-panel-dark {
-  background: rgba(10, 37, 64, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(15, 52, 96, 0.5);
-}
-
-.corporate-shadow {
-  box-shadow: 0 10px 30px -5px rgba(10, 37, 64, 0.08), 0 4px 12px -2px rgba(10, 37, 64, 0.04);
-}
-
-.corporate-shadow-lg {
-  box-shadow: 0 20px 40px -15px rgba(10, 37, 64, 0.15), 0 8px 16px -4px rgba(10, 37, 64, 0.08);
-}
-
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -72,86 +49,4 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #0A2540;
-}
-
-/* ============================================================
-   HERO TECH ANIMATION — pure CSS keyframes
-   ============================================================ */
-@keyframes cmp-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.cmp-spin-slow { animation: cmp-spin 26s linear infinite; }
-.cmp-spin-med  { animation: cmp-spin 16s linear infinite; }
-.cmp-spin-fast { animation: cmp-spin 9s  linear infinite; }
-.cmp-spin-rev  { animation: cmp-spin 34s linear infinite reverse; }
-
-@keyframes cmp-node-pulse {
-  0%, 100% { opacity: 0.45; transform: scale(0.85); }
-  50%      { opacity: 1;    transform: scale(1.15); }
-}
-
-.cmp-node { animation: cmp-node-pulse 2.4s ease-in-out infinite; }
-
-@keyframes cmp-core-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%      { opacity: 0.9; transform: scale(1.08); }
-}
-
-.cmp-pulse-core { animation: cmp-core-pulse 3.5s ease-in-out infinite; }
-
-/* Sweep: horizontal line travels top to bottom through the ring */
-@keyframes cmp-sweep-move {
-  0%   { transform: translateY(-120px); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateY(120px); opacity: 0; }
-}
-
-.cmp-sweep { animation: cmp-sweep-move 4.5s ease-in-out infinite; }
-
-/* Orbiting dots: full rotation around center */
-.cmp-orbit { animation: cmp-spin linear infinite; }
-
-@keyframes cmp-hex-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
-  50%      { transform: translateY(-10px) rotate(15deg); opacity: 0.8; }
-}
-
-.cmp-hex { animation: cmp-hex-float 6s ease-in-out infinite; }
-
-/* Particle network core */
-.cmp-net { animation: cmp-spin 40s linear infinite; }
-
-@keyframes cmp-line-flow {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.9; }
-}
-
-.cmp-net-line { animation: cmp-line-flow 3s ease-in-out infinite; }
-
-@keyframes cmp-hub-glow {
-  0%, 100% { opacity: 0.75; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.25); }
-}
-
-.cmp-hub { animation: cmp-hub-glow 2.6s ease-in-out infinite; }
-
-@keyframes cmp-hub-ring {
-  0%   { transform: scale(0.6); opacity: 0.9; }
-  70%  { transform: scale(1.6); opacity: 0; }
-  100% { transform: scale(0.6); opacity: 0; }
-}
-
-.cmp-hub-ring { animation: cmp-hub-ring 2.6s ease-out infinite; }
-
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .cmp-spin-slow, .cmp-spin-med, .cmp-spin-fast, .cmp-spin-rev,
-  .cmp-node, .cmp-pulse-core,
-  .cmp-sweep, .cmp-orbit, .cmp-hex,
-  .cmp-net, .cmp-net-line, .cmp-hub, .cmp-hub-ring {
-    animation: none !important;
-  }
 }

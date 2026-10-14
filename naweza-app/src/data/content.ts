@@ -2,10 +2,12 @@ export interface ServiceItem {
   id: string;
   title: string;
   slug: string;
+  plainName: string;
   shortDescription: string;
   fullDescription: string;
   iconName: string;
   deliverables: string[];
+  startingFrom?: string;
 }
 
 export interface InsightPost {
@@ -34,100 +36,107 @@ export const CORE_SERVICES: ServiceItem[] = [
     id: 'ai-integration',
     title: 'AI Integration & Agents',
     slug: 'ai-integration-agents',
+    plainName: 'AI That Does the Work',
     shortDescription: 'Put AI to work inside your business — chatbots, assistants, document processing, and smart decision support.',
-    fullDescription: 'We integrate practical AI into the tools you already use. From customer-facing chatbots and WhatsApp assistants to internal document processing and automated reporting, we build AI solutions that reduce manual work and speed up operations — without the hype, and with full control over your data.',
+    fullDescription: 'We put AI to work inside your business — answering customer questions on WhatsApp, reading documents, drafting quotes, or summarising your reports — so your team spends less time on repetitive work and more time serving customers. We handle everything: design, build, integration with your existing tools, and training your staff to use it.',
     iconName: 'Bot',
     deliverables: [
-      'Custom AI Chatbots & WhatsApp Assistants',
-      'LLM-Powered Document & Data Processing',
-      'AI Search, Summarisation & Q&A Systems',
-      'AI Integration with Existing Systems (CRM, ERP, POS)'
+      'AI chatbots and WhatsApp assistants for customer service',
+      'AI that reads and processes documents (invoices, forms, reports)',
+      'Smart search and summaries for your business knowledge',
+      'AI built into the tools you already use',
     ],
   },
   {
     id: 'web-development',
     title: 'Website & Web App Development',
     slug: 'website-web-app-development',
+    plainName: 'Websites That Work',
     shortDescription: 'Modern, fast, mobile-first websites and web applications that convert visitors into customers.',
-    fullDescription: 'We design and build professional websites, e-commerce stores, and full web applications using modern technologies. Every site is responsive, search-engine friendly, and built to grow with your business — from a landing page to a full client portal.',
+    fullDescription: 'We build professional websites that look good on phones and computers, load fast, and show up on Google. Whether you need a simple site to show what you offer, an online store, or a full web app your team and customers log into — we design it, build it, host it, and keep it running.',
     iconName: 'Globe',
     deliverables: [
-      'Corporate & Business Websites',
-      'E-Commerce & Online Stores',
-      'Web Applications & Client Portals',
-      'Hosting, Domains & Ongoing Maintenance'
+      'Business and company websites',
+      'Online stores and e-commerce',
+      'Web applications and customer portals',
+      'Domain, hosting, and ongoing updates',
     ],
   },
   {
     id: 'automation',
     title: 'Business Process Automation',
     slug: 'business-process-automation',
+    plainName: 'Automation for Repetitive Work',
     shortDescription: 'Eliminate repetitive manual work — connect your apps and automate the tasks that eat your team\'s day.',
-    fullDescription: 'We map your manual processes — quotes, invoices, follow-ups, stock updates, reporting — and automate them end-to-end. Your systems talk to each other, data flows automatically, and your team focuses on work that actually matters.',
+    fullDescription: 'If your team is stuck doing the same task over and over — sending invoices, updating stock, chasing quotes, sending reminders — we automate it. Your systems talk to each other, data moves by itself, and your people focus on work that actually needs a human.',
     iconName: 'Workflow',
     deliverables: [
-      'Workflow Automation (n8n, Make, Zapier)',
-      'System & API Integrations',
-      'Automated Invoicing, Quotes & Notifications',
-      'WhatsApp, Email & SMS Automation'
+      'Automated workflows (invoices, quotes, stock updates, reports)',
+      'Connecting your apps so they share data automatically',
+      'WhatsApp, email, and SMS that send themselves',
+      'Reminders, follow-ups, and notifications',
     ],
   },
   {
     id: 'custom-software',
     title: 'Custom Software & Business Systems',
     slug: 'custom-software-business-systems',
+    plainName: 'Software Built for Your Business',
     shortDescription: 'POS, inventory, CRM, and internal systems built exactly around how your business operates.',
-    fullDescription: 'Off-the-shelf software rarely fits. We build custom systems — point-of-sale, inventory management, booking platforms, customer databases — designed around your actual workflow, running online or offline, on desktop or mobile.',
+    fullDescription: 'Ready-made software rarely fits how you actually work. We build systems shaped around your business — point-of-sale, stock management, bookings, customer databases — that work online or offline, on computers or phones, and grow with you.',
     iconName: 'Code',
     deliverables: [
-      'Point-of-Sale & Inventory Systems',
-      'CRM & Customer Management Platforms',
-      'Booking, Scheduling & Field Service Apps',
-      'Offline-First & Multi-Branch Solutions'
+      'Point-of-sale and inventory systems',
+      'Customer management (CRM) platforms',
+      'Booking, scheduling, and field service apps',
+      'Multi-branch and offline-ready solutions',
     ],
   },
   {
     id: 'mobile-apps',
     title: 'Mobile App Development',
     slug: 'mobile-app-development',
+    plainName: 'Apps for Phones and Tablets',
     shortDescription: 'Native-quality Android and iOS apps for your customers, staff, and field operations.',
-    fullDescription: 'We build mobile apps that work in real conditions — including offline use and poor connectivity. Customer apps, staff apps, field data collection, delivery tracking, and anything your business needs in your customers\' or team\'s pocket.',
+    fullDescription: 'We build mobile apps that work in real conditions — including offline use and poor signal. Customer apps, staff apps, field data collection, delivery tracking, and anything else your business needs in your team\'s or customers\' pockets.',
     iconName: 'Smartphone',
     deliverables: [
-      'Android & iOS App Development',
-      'Offline-Capable Field & Staff Apps',
-      'App Store & Play Store Publishing',
-      'Push Notifications & App Maintenance'
+      'Android and iPhone apps',
+      'Apps that work without internet',
+      'Publishing to the App Store and Play Store',
+      'Push notifications and ongoing maintenance',
     ],
   },
   {
     id: 'data-dashboards',
     title: 'Data, Dashboards & Reporting',
     slug: 'data-dashboards-reporting',
+    plainName: 'Dashboards & Reports',
     shortDescription: 'Turn scattered spreadsheets and systems into live dashboards that show what\'s actually happening.',
-    fullDescription: 'We consolidate your sales, stock, financial, and operational data into clear, real-time dashboards and automated reports. See performance, spot problems early, and make decisions based on facts — not yesterday\'s spreadsheet.',
+    fullDescription: 'We pull your sales, stock, and operational data together into one clear dashboard you can check anytime. You see what is happening in real time, spot problems early, and make decisions based on facts — not yesterday\'s spreadsheet.',
     iconName: 'BarChart3',
     deliverables: [
-      'Real-Time Business Dashboards',
-      'Automated Daily / Weekly Reports',
-      'Data Consolidation from Multiple Systems',
-      'Spreadsheet-to-System Migration'
+      'Live dashboards you can check anytime',
+      'Reports that send themselves daily or weekly',
+      'Bringing data from different systems into one place',
+      'Moving your business off spreadsheets',
     ],
   },
   {
     id: 'ai-strategy',
     title: 'AI Strategy & Digital Transformation',
     slug: 'ai-strategy-digital-transformation',
+    plainName: 'AI Strategy & Planning',
     shortDescription: 'Not sure where AI fits in your business? We audit, plan, and prioritise — then build what pays off first.',
-    fullDescription: 'Before building, we help you see the full picture. We audit your current processes, identify the highest-impact automation and AI opportunities, and deliver a practical roadmap with priorities, timelines, and expected returns — no jargon, no overspending.',
+    fullDescription: 'Not sure where to start with AI or digital tools? We look at how your business runs, show you where technology will save the most money, and give you a clear plan — what to build first, what it costs, and what results to expect. No jargon.',
     iconName: 'Sparkles',
     deliverables: [
-      'AI & Automation Opportunity Audits',
-      'Digital Transformation Roadmaps',
-      'Technology Selection & Vendor Guidance',
-      'Team Training & Change Support'
+      'A plain-English review of where AI can help you',
+      'A step-by-step plan with priorities and costs',
+      'Guidance on which tools to choose',
+      'Training for your team',
     ],
-  }
+  },
 ];
 
 export const INDUSTRIES = [
@@ -135,50 +144,50 @@ export const INDUSTRIES = [
     id: 'retail',
     title: 'Retail & POS',
     description: 'Point-of-sale, inventory, multi-branch stock control, and daily sales reporting for shops, bars, and chains.',
-    icon: 'ShoppingCart'
+    icon: 'ShoppingCart',
   },
   {
     id: 'hospitality',
     title: 'Hospitality & Tourism',
     description: 'Booking systems, guest management, and WhatsApp assistants for lodges, restaurants, and tour operators.',
-    icon: 'Palmtree'
+    icon: 'Palmtree',
   },
   {
     id: 'logistics',
     title: 'Logistics & Transport',
     description: 'Fleet tracking, delivery management, dispatch automation, and field-driver apps built for real road conditions.',
-    icon: 'Truck'
+    icon: 'Truck',
   },
   {
     id: 'agriculture',
     title: 'Agriculture',
     description: 'Farm record-keeping, livestock and produce tracking, seasonal reporting, and SMS/WhatsApp field updates.',
-    icon: 'Sprout'
+    icon: 'Sprout',
   },
   {
     id: 'mining',
     title: 'Mining & Construction',
     description: 'Project tracking, equipment logs, site attendance, and contractor management systems.',
-    icon: 'HardHat'
+    icon: 'HardHat',
   },
   {
     id: 'education',
     title: 'Education',
     description: 'School administration, fee tracking, parent communication, and student record systems for private institutions.',
-    icon: 'GraduationCap'
+    icon: 'GraduationCap',
   },
   {
     id: 'healthcare',
     title: 'Healthcare & Clinics',
     description: 'Patient records, appointment booking, reminders, and clinic management platforms that work offline.',
-    icon: 'HeartPulse'
+    icon: 'HeartPulse',
   },
   {
     id: 'professional',
     title: 'Professional Services',
     description: 'Document automation, proposal generation, client portals, and AI research assistants for firms and consultancies.',
-    icon: 'Briefcase'
-  }
+    icon: 'Briefcase',
+  },
 ];
 
 export const PROCESS_STEPS = [
@@ -187,29 +196,29 @@ export const PROCESS_STEPS = [
     stepNumber: '01',
     title: 'Discover',
     description: 'We start with a free consultation. We learn how your business actually runs — your processes, systems, pain points, and goals — before recommending anything.',
-    icon: 'Search'
+    icon: 'Search',
   },
   {
     id: 'design',
     stepNumber: '02',
     title: 'Design',
     description: 'You get a clear plan: what we will build, what it costs, how long it takes, and the results you should expect. No surprises, no scope creep.',
-    icon: 'PenTool'
+    icon: 'PenTool',
   },
   {
     id: 'build',
     stepNumber: '03',
     title: 'Build & Integrate',
     description: 'We build, test, and integrate — with your team involved at every milestone. You see progress continuously, not just at the end.',
-    icon: 'Code'
+    icon: 'Code',
   },
   {
     id: 'support',
     stepNumber: '04',
     title: 'Deploy & Support',
     description: 'We launch, train your team, and stay on for support and improvements. Your software keeps working — and keeps improving — long after go-live.',
-    icon: 'ShieldCheck'
-  }
+    icon: 'ShieldCheck',
+  },
 ];
 
 export const INSIGHTS: InsightPost[] = [
@@ -222,7 +231,7 @@ export const INSIGHTS: InsightPost[] = [
     publishDate: 'October 2026',
     readTime: '5 min read',
     category: 'AI & Automation',
-    author: 'Composure Technology Team'
+    author: 'Composure Technology Team',
   },
   {
     id: '2',
@@ -233,7 +242,7 @@ export const INSIGHTS: InsightPost[] = [
     publishDate: 'September 2026',
     readTime: '6 min read',
     category: 'Automation',
-    author: 'Composure Technology Team'
+    author: 'Composure Technology Team',
   },
   {
     id: '3',
@@ -244,8 +253,8 @@ export const INSIGHTS: InsightPost[] = [
     publishDate: 'August 2026',
     readTime: '5 min read',
     category: 'Software Strategy',
-    author: 'Composure Technology Team'
-  }
+    author: 'Composure Technology Team',
+  },
 ];
 
 export const CONTACT_MAILBOXES = [
@@ -260,9 +269,9 @@ export const PUBLIC_CONTACT_INFO = {
   salesEmail: '',
   location: 'Windhoek, Namibia (Serving Namibia & Beyond)',
   socialLinks: {
-      facebook: 'https://www.facebook.com/profile.php?id=100054053484353',
-      instagram: 'https://www.instagram.com/nawezaconsulting/',
-      linkedin: 'https://www.linkedin.com/in/naweza-consulting-7193092b1/',
-      whatsapp: 'https://wa.me/264813107977'
-    }
+    facebook: 'https://www.facebook.com/profile.php?id=100054053484353',
+    instagram: 'https://www.instagram.com/nawezaconsulting/',
+    linkedin: 'https://www.linkedin.com/in/naweza-consulting-7193092b1/',
+    whatsapp: 'https://wa.me/264813107977',
+  },
 };

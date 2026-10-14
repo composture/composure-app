@@ -2,28 +2,26 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Composure — AI, Software & Automation",
-  description: "Composure (Pty) Ltd builds AI-powered software, websites, automations, and business systems for companies in Namibia and beyond. AI integration, web development, process automation, custom software, and mobile apps.",
+  title: "Composure — Websites, Apps & Automation for Namibian Businesses",
+  description: "Composure (Pty) Ltd builds websites, apps, custom software, automation, and AI tools that make everyday business work easier. Based in Windhoek, Namibia. Book a free consultation.",
   keywords: [
     "Composure",
     "Composure (Pty) Ltd",
-    "AI integration Namibia",
+    "website development Namibia",
     "software development Namibia",
     "business automation Windhoek",
     "custom software Namibia",
     "mobile app development Namibia",
-    "website development Namibia",
-    "AI agents for business",
     "POS system Namibia",
-    "n8n automation"
+    "AI for business Namibia",
   ],
   authors: [{ name: "Composure (Pty) Ltd" }],
   icons: {
     icon: "/logo.jpeg",
   },
   openGraph: {
-    title: "Composure — AI, Software & Automation",
-    description: "AI integration, websites, automation, custom software, and mobile apps for Namibian businesses. Book a free consultation.",
+    title: "Composure — Websites, Apps & Automation for Namibian Businesses",
+    description: "We build websites, apps, and automation that make everyday business work easier. Based in Windhoek, Namibia.",
     url: "https://www.composuretech.com",
     siteName: "Composure",
     locale: "en_US",

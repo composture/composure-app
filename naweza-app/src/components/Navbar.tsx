@@ -36,9 +36,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking = () => {} }) => {
             <strong>COMPOSURE</strong> — Windhoek, Namibia
           </span>
           <div className="flex items-center gap-4 text-gray-300 text-xs">
-            <a href={`tel:${PUBLIC_CONTACT_INFO.primaryPhone}`} className="hover:text-white flex items-center gap-1.5 transition-colors">
+            <a href={PUBLIC_CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white flex items-center gap-1.5 transition-colors">
               <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              {PUBLIC_CONTACT_INFO.primaryPhone}
+              WhatsApp us
             </a>
             <span className="hidden sm:inline text-gray-600">•</span>
             <a href={`mailto:${PUBLIC_CONTACT_INFO.primaryEmail}`} className="hover:text-white flex items-center gap-1.5 transition-colors">

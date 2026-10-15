@@ -262,9 +262,9 @@ export const CONTACT_MAILBOXES = [
 ];
 
 export const PUBLIC_CONTACT_INFO = {
-  primaryPhone: '+264 81 310 7977',
-  whatsappNumber: '264813107977',
-  whatsappUrl: 'https://wa.me/264813107977',
+  primaryPhone: '+264 85 778 2329',
+  whatsappNumber: '264857782329',
+  whatsappUrl: 'https://wa.me/264857782329',
   primaryEmail: 'info@composuretech.com',
   salesEmail: '',
   location: 'Windhoek, Namibia (Serving Namibia & Beyond)',

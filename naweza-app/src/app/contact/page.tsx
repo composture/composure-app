@@ -24,14 +24,6 @@ export default function ContactPage() {
           {/* Direct contact options */}
           <div className="lg:col-span-5 space-y-4">
             <a
-              href={`tel:${PUBLIC_CONTACT_INFO.primaryPhone}`}
-              className="block bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:border-[#0A2540]/30 transition-colors"
-            >
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Call Us</span>
-              <p className="text-lg font-bold text-[#0A2540] mt-1">{PUBLIC_CONTACT_INFO.primaryPhone}</p>
-            </a>
-
-            <a
               href={PUBLIC_CONTACT_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"

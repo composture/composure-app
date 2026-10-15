@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
             <div className="space-y-1.5 text-xs text-blue-200">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                <a href={`tel:${PUBLIC_CONTACT_INFO.primaryPhone}`} className="hover:underline font-bold text-white">{PUBLIC_CONTACT_INFO.primaryPhone}</a>
+                <a href={PUBLIC_CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:underline font-bold text-white">WhatsApp us</a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-blue-400" />
